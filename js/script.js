@@ -24,6 +24,7 @@ app.config(function ($mdThemingProvider) {
 });
 
 
+/*
 app.directive("ngMobileClick", [function () {
     return function (scope, elem, attrs) {
         elem.bind("touchstart click", function (e) {
@@ -34,6 +35,7 @@ app.directive("ngMobileClick", [function () {
         });
     }
 }])
+*/
 
 app.controller('MainCtrl', ['$scope', '$cookies', '$interval', '$http', '$mdDialog', '$cacheFactory', '$timeout', function mainctrl($scope, $cookies, $interval, $http, $mdDialog, $cacheFactory, $timeout) {
     $scope.device = $cookies.get('rmDevice');
@@ -54,7 +56,7 @@ app.controller('MainCtrl', ['$scope', '$cookies', '$interval', '$http', '$mdDial
                 '</md-input-container>' +
                 '  </md-dialog-content>' +
                 '  <div class="md-actions">' +
-                '    <md-button ng-mobile-click="authDialog()" class="md-primary">' +
+                '    <md-button ng-click="authDialog()" class="md-primary">' +
                 '      Go!' +
                 '    </md-button>' +
                 '  </div>' +
@@ -107,7 +109,7 @@ app.controller('MainCtrl', ['$scope', '$cookies', '$interval', '$http', '$mdDial
                 '</form>' +
                 ' </md-dialog-content>' +
                 ' <div class="md-actions">' +
-                '   <md-button ng-mobile-click="setDialog()" ng-disabled="setupForm.$invalid" class="md-primary">' +
+                '   <md-button ng-click="setDialog()" ng-disabled="setupForm.$invalid" class="md-primary">' +
                 '     Go!' +
                 '   </md-button>' +
                 ' </div>' +
@@ -283,7 +285,7 @@ app.controller('MainCtrl', ['$scope', '$cookies', '$interval', '$http', '$mdDial
                 '</form>' +
                 ' </md-dialog-content>' +
                 ' <div class="md-actions">' +
-                '   <md-button ng-mobile-click="createDialog()" class="md-primary" ng-disabled="quickBookForm.$invalid" style="font-size:24px;padding:10px;">' +
+                '   <md-button ng-click="createDialog()" class="md-primary" ng-disabled="quickBookForm.$invalid" style="font-size:24px;padding:10px;">' +
                 '     Book' +
                 '   </md-button>' +
                 ' </div>' +
@@ -382,7 +384,7 @@ btn.controller('BtnCtrl', ['$scope', '$cookies', '$interval', '$http', '$mdDialo
                 '</md-input-container>' +
                 '  </md-dialog-content>' +
                 '  <div class="md-actions">' +
-                '    <md-button ng-mobile-click="authDialog()" class="md-primary">' +
+                '    <md-button ng-click="authDialog()" class="md-primary">' +
                 '      Go!' +
                 '    </md-button>' +
                 '  </div>' +
@@ -435,7 +437,7 @@ btn.controller('BtnCtrl', ['$scope', '$cookies', '$interval', '$http', '$mdDialo
                 '</form>' +
                 ' </md-dialog-content>' +
                 ' <div class="md-actions">' +
-                '   <md-button ng-mobile-click="setDialog()" ng-disabled="setupForm.$invalid" class="md-primary">' +
+                '   <md-button ng-click="setDialog()" ng-disabled="setupForm.$invalid" class="md-primary">' +
                 '     Go!' +
                 '   </md-button>' +
                 ' </div>' +
@@ -613,7 +615,7 @@ btn.controller('BtnCtrl', ['$scope', '$cookies', '$interval', '$http', '$mdDialo
                 '</form>' +
                 ' </md-dialog-content>' +
                 ' <div class="md-actions">' +
-                '   <md-button ng-mobile-click="createDialog()" class="md-primary" ng-disabled="quickBookForm.$invalid" style="font-size:24px;padding:10px;">' +
+                '   <md-button ng-click="createDialog()" class="md-primary" ng-disabled="quickBookForm.$invalid" style="font-size:24px;padding:10px;">' +
                 '     Book' +
                 '   </md-button>' +
                 ' </div>' +

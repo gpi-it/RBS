@@ -52,11 +52,11 @@
                     <p>Created by {{currEvent.creator.length > 24 ? 'GreenRobot' : currEvent.creator}}</p>
                 </div>
                 <div layout='row'>
-                    <md-button ng-if='state!="noevent"' class='md-raised' ng-disabled='state=="confirmed"' ng-mobile-click="startEvent()" flex>
+                    <md-button ng-if='state!="noevent"' class='md-raised' ng-disabled='state=="confirmed"' ng-click="startEvent()" flex>
                         <h1 class='md-display-2'>Start Event</h1></md-button>
-                    <md-button ng-if='state!="noevent"' class='md-raised' ng-disabled='state=="confirmed"' ng-mobile-click="endEvent()" flex>
+                    <md-button ng-if='state!="noevent"' class='md-raised' ng-disabled='state=="confirmed"' ng-click="endEvent()" flex>
                         <h1 class='md-display-2'>Cancel Event</h1></md-button>
-                    <md-button ng-if='state=="noevent"&&untilnext > 15' class='md-raised' ng-mobile-click="showQuickBook()" flex>
+                    <md-button ng-if='state=="noevent"&&untilnext > 15' class='md-raised' ng-click="showQuickBook()" flex>
                         <h1 class='md-display-2'>Quick book</h1></md-button>
                 </div>
             </md-content>
