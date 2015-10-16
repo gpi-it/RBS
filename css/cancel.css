@@ -1,0 +1,91 @@
+#main{
+    margin:0px;
+    color:white;
+    width:100%;
+    height:100%;
+    text-align: center;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+#main:active{
+    background-color: rgba(255,255,255,0.6);
+}
+
+#container{
+    margin:0px;
+    color:white;
+    width:100%;
+    height:100%;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+
+body {
+    margin: 0px;
+    font-family: Arial, sans-serif;
+    font-size: 1.5em;
+}
+
+#text{
+    position:relative;
+    font-size:3em;
+    font-weight:bold;
+    top:50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+}
+
+.red {
+    background-color: #ef5350;
+}
+
+.green {
+    background-color: #2dcb89;
+}
+
+.blue {
+    background-color: #42a5f5;
+}
+
+@keyframes flashorange {
+    from {
+        background-color: #FF9933;
+    }
+    to {
+        background-color: #FF6600;
+    }
+}
+
+@-webkit-keyframes flashorange {
+    from {
+        background-color: #FF9933;
+    }
+    to {
+        background-color: #FF6600;
+    }
+}
+
+.orange {
+    background-color: #FF9933 !important;
+    animation: flashorange;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    -webkit-animation: flashorange;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-direction: alternate;
+    -webkit-animation-timing-function: ease-in-out;
+    /* Chrome, Safari, Opera */
+    animation-timing-function: ease-in-out;
+    -webkit-animation-delay: 1s;
+    /* Chrome, Safari, Opera */
+    animation-delay: 1s;
+}

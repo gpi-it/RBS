@@ -1,0 +1,52 @@
+.red {
+    background-color: #F44336 !important;
+    color:white;
+}
+
+.green {
+    background-color: #4CAF50 !important;
+    color:white;
+}
+
+.blue {
+    background-color: #2196F3 !important;
+    color:white;
+}
+
+.red-light {
+    background-color: #FF5252 !important;
+    color:white;
+}
+
+.green-light {
+    background-color: #81C784 !important;
+    color:white;
+}
+
+.blue-light {
+    background-color: #42A5F5 !important;
+    color:white;
+}
+
+.white {
+    background-color:white !important;
+}
+
+#container{
+    height:100%;
+}
+
+#main{
+    height:100%;
+}
+
+.subhead, .md-toolbar-tools{
+padding-left:9px; 
+font-size:24px;
+}
+
+.md-display-4{
+    padding-left:9px;
+    font-size:92px !important;
+}
+
