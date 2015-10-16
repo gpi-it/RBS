@@ -1,9 +1,9 @@
 //small fuction to prevent overscoll in full screen view
 //if need to have an element scoll add the class .scroll
-$('body').on('touchmove', function (e) {
+/*$('body').on('touchmove', function (e) {
     if (!$('.scroll').has($(e.target)).length || !$('.scroll').children.has($(e.target)).length)
         e.preventDefault();
-});
+});*/
 
 
 //moment.js initialization
