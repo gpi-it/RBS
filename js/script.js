@@ -553,18 +553,14 @@ btn.controller('BtnCtrl', ['$scope', '$cookies', '$interval', '$http', '$mdDialo
         }
     };
 
-    // end event function
-
     $scope.endEvent = function () {
         $http.post('php/endevent.php', {
             'eventId': $scope.currEvent.id
         }).success(function (data) {
             console.log('end event done!' + data);
         });
-        $interval.cancel(timer);
-        timer = undefined;
-        $timeout(function () {
-            timer = $interval(update, 1500);
+        $scope.go=false;
+        $timeout(function () {$scope.go=true;
         }, 3000);
         $scope.state = 'noevent';
         $scope.color = 'green';
@@ -578,10 +574,8 @@ btn.controller('BtnCtrl', ['$scope', '$cookies', '$interval', '$http', '$mdDialo
         }).success(function (data) {
             console.log('confirm event done!' + data);
         });
-        $interval.cancel(timer);
-        timer = undefined;
-        $timeout(function () {
-            timer = $interval(update, 1500);
+        $scope.go=false;
+        $timeout(function () {$scope.go=true;
         }, 3000);
         $scope.state = 'confirmed';
         $scope.color = 'red';
