@@ -24,8 +24,8 @@
         <md-content id='main' class='{{color}}' >
         <div layout="column" layout-fill layout-align="center center">
         <h1 ng-if='state=="noevent"' class='md-display-2'>Room free</h1>
-        <md-button ng-if='state!="noevent"' class='md-raised' ng-disabled='state=="confirmed"' ng-click='state!="confirmed" || startEvent()' style="width:98%"><h1 class='md-display-2'>Start Event</h1></md-button>
-        <md-button ng-if='state!="noevent"' class='md-raised' ng-click='state!="confirmed" || endEvent()' style="width:98%"><h1 class='md-display-2'>{{state=="confirmed" ? "End" : "Cancel"}} Event</h1></md-button>
+        <md-button ng-if='state!="noevent"' class='md-raised' ng-disabled='state=="confirmed"' ng-click='state=="confirmed"||startEvent()' style="width:98%"><h1 class='md-display-2'>Start Event</h1></md-button>
+        <md-button ng-if='state!="noevent"' class='md-raised' ng-click='endEvent()' style="width:98%"><h1 class='md-display-2'>{{state=="confirmed" ? "End" : "Cancel"}} Event</h1></md-button>
         </div>
         </md-content>
     </div>
