@@ -9,8 +9,6 @@
     <meta http-equiv='cache-control' content='no-cache'>
     <meta http-equiv='expires' content='0'>
     <meta http-equiv='pragma' content='no-cache'>
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.11.4/angular-material.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
     <link href="css/style.css" rel="stylesheet" type="text/css">
     <script type='application/javascript' src='js/fastclick.js'></script>
     <script src="js/moment.js">
@@ -21,13 +19,13 @@
 
 <body ng-app="BtnApp" ng-controller="BtnCtrl">
     <div ng-if='currDevice[0].auth' id='container' layout="column" layout-fill>
-        <md-content id='main' class='{{color}}' >
+        <div id='main' class='{{color}}' >
         <div layout="column" layout-fill layout-align="center center">
         <h1 ng-if='state=="noevent"' class='md-display-2'>Room free</h1>
-        <md-button ng-if='state!="noevent"' class='md-raised' ng-disabled='state=="confirmed"' ng-click='state=="confirmed"||startEvent()' style="width:98%"><h1 class='md-display-2'>Start Event</h1></md-button>
-        <md-button ng-if='state!="noevent"' class='md-raised' ng-click='endEvent()' style="width:98%"><h1 class='md-display-2'>{{state=="confirmed" ? "End" : "Cancel"}} Event</h1></md-button>
+        <button ng-if='state!="noevent"' class='md-raised' ng-disabled='state=="confirmed"' ng-click='state=="confirmed"||startEvent()' style="width:98%"><h1 class='md-display-2'>Start Event</h1></button>
+        <button ng-if='state!="noevent"' class='md-raised' ng-click='endEvent()' style="width:98%"><h1 class='md-display-2'>{{state=="confirmed" ? "End" : "Cancel"}} Event</h1></button>
         </div>
-        </md-content>
+      </div>
     </div>
 
 
