@@ -110,7 +110,7 @@ app.service('UpdateService', function($http, $interval, $rootScope) {
 
       });
 
-    app.controller('MainCtrl', ['$scope', '$cookies', function mainctrl($scope, $cookies) {
+    app.controller('MainCtrl', ['$scope', '$cookies', '$location', function mainctrl($scope, $cookies, $location) {
       $scope.device = null;
       $scope.untilnext = 0;
       $scope.state = {};
@@ -173,7 +173,7 @@ app.service('UpdateService', function($http, $interval, $rootScope) {
         var device = $cookies.get('rmDevice');
         $scope.device = UpdateService.getCurrentDevice($scope.device);
         if ($scope.device == null) {
-          //ngRoute redirect to initial log in page
+          $location.path('/');
         }
       });
 
@@ -227,87 +227,6 @@ app.service('UpdateService', function($http, $interval, $rootScope) {
         }
         $scope.list = tempList;
       });
-
-      /*
-        var update = function() {
-          var tempEv = [];
-          var tempcurr = '';
-          var tempConf = 'noevent';
-          var tempColor = '';
-          var cache = $cacheFactory.get('$http');
-          cache.remove('js/data.json');
-          $http.get('js/data.json', {
-            cache: false,
-            timeout: 3000
-          }).success(function(data) {
-            $scope.device = $cookies.get('rmDevice');
-            $scope.currDevice = data.filter(function(some) {
-              return some.deviceid == $scope.device
-            });
-            console.log($scope.device);
-            console.log(data);
-            console.log($scope.currDevice);
-          });
-
-          if (!(typeof($scope.currDevice) == 'undefined')) {
-            if (!(typeof($scope.currDevice[0]) == 'undefined')) {
-              console.log('currDevice 0 valido');
-              if ($scope.currDevice[0].auth) {
-                $http.get('php/list.php').success(function(events) {
-                  for (var i = 0; i < events.length; i++) {
-                    var range = moment(events[i].start).twix(events[i].end);
-                    if (range.isCurrent()) {
-                      tempcurr = events[i];
-                      var checkexp = new RegExp("\\[Confirmed\\]");
-                      if (checkexp.test(events[i].summary)) {
-                        tempConf = 'confirmed';
-                        tempColor = 'red';
-                      } else {
-                        var boia = moment(events[i].start);
-                        boia = boia.add(20, 'm');
-                        var boiadeh = moment(events[i].start);
-                        boiadeh = boiadeh.add(30, 'm');
-                        var now = moment();
-                        if ((now >= boia) && (now <= boiadeh)) {
-                          tempConf = 'out';
-                          tempColor = 'blue';
-                        } else if (now >= boiadeh) {
-                          //autoEndEvent();
-                          tempConf = 'in';
-                          tempColor = 'blue';
-                        } else {
-                          tempConf = 'in';
-                          tempColor = 'blue';
-                        }
-                      }
-
-                    } else {
-                      tempEv.push(events[i]);
-
-                    }
-                  }
-                  if (tempConf == 'noevent') {
-                    tempColor = 'green';
-                  }
-                  if (tempEv.length > 0) {
-                    $scope.untilnext = moment().twix(tempEv[0].start).length("minutes");
-                  } else {
-                    $scope.untilnext = 61;
-                  }
-                  console.log(tempEv);
-                  if ($scope.go) {
-                    $scope.color = tempColor;
-                    $scope.eventslist = tempEv;
-                    $scope.currEvent = tempcurr;
-                    $scope.state = tempConf;
-                  }
-                });
-              }
-
-            }
-          }
-        };
-      */
 
       //register in the scope the showquickbook fuction to show the dialog
       /*
