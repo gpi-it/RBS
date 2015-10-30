@@ -26,7 +26,14 @@ $i= 0;
     else{
         $allday = false;
     }
-    $temp = array("id" => $event->id, "summary" => $event->summary, "creator" => $event->creator->email, "allday" => $allday, "start" => $start, "end" => $end);
+    if ((date('c')>$start)&&(date('c')<$end))
+    {
+      $current=true;
+    }
+    else {
+      $current=false;
+    }
+    $temp = array("id" => $event->id, "summary" => $event->summary, "creator" => $event->creator->email, "allday" => $allday, "start" => $start, "end" => $end, "current" => $current);
     array_push($pippo,$temp);
     $i++;
 }
