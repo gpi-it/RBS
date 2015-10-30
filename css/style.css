@@ -39,14 +39,3 @@
 #main{
     height:100%;
 }
-
-.subhead, .md-toolbar-tools{
-padding-left:9px; 
-font-size:24px;
-}
-
-.md-display-4{
-    padding-left:9px;
-    font-size:92px !important;
-}
-

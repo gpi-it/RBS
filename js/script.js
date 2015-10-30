@@ -19,35 +19,21 @@ var app = angular.module('CalendarApp', ['ngRoute', 'ngTouch', 'ngCookies']);
 app.config(function($routeProvider) {
   $routeProvider.
   when('/', {
-    template: 'bootstrap.html',
+    template: 'templates/bootstrap.html',
     controller: 'SetCtrl'
   }).
   when('/main', {
-    template: 'main.html',
+    template: 'templates/main.html',
     controller: 'MainCtrl'
   }).
   when('/side', {
-    template: 'side.html',
+    template: 'templates/side.html',
     controller: 'SideCtrl'
   }).
   otherwise({
     redirectTo: '/'
   });
 });
-
-
-/*
-app.directive("ngMobileClick", [function () {
-    return function (scope, elem, attrs) {
-        elem.bind("touchstart click", function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            scope.$apply(attrs["ngMobileClick"]);
-        });
-    }
-}])
-*/
 
 app.service('UpdateService', function($http, $interval, $rootScope) {
       var devicesData = {};
