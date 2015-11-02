@@ -1,0 +1,21 @@
+<div id="container" class="">
+  <div id="container-head" class="">
+    <h1></h1>
+    <p>
+
+    </p>
+  </div>
+  <div id="container-buttons" class="">
+    <button ng-if="" type="button" name="book-button">Book the room</button>
+    <button ng-if="" type="button" name="start-button">Start</button>
+    <button ng-if="" type="button" name="stop-button">Cancel</button>
+  </div>
+</div>
+<div id="list" class="">
+  <div id="list-head" class="">
+    <ul ng-repeat="event in list">
+      <li><p>{{event.start | date:'H:mm'}} to {{event.end | date:'H:mm'}} - <strong>{{event.summary}}</strong></p></li>
+    </ul>
+  </div>
+
+</div>

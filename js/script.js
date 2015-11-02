@@ -30,6 +30,10 @@ app.config(function($routeProvider) {
     template: 'templates/side.html',
     controller: 'SideCtrl'
   }).
+  when('/admin', {
+    template: 'templates/admin.html',
+    controller: 'AdminCtrl'
+  }).
   otherwise({
     redirectTo: '/'
   });
