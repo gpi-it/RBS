@@ -161,6 +161,19 @@ app.service('UpdateService', function($http, $interval, $rootScope) {
         }
       };
 
+      $interval(function(){
+        if($scope.list[0]!=undefined){
+          $scope.untilnext = moment().twix($scope.list[0].start).length("minutes");}
+        else {
+          $scope.untilnext=61;
+        };
+        if ($scope.state.color == "green"){
+              if ($scope.untilnext < 15) {
+                $scope.state=incomingState;
+              }
+        }
+      }, 1000);
+
       // start event function
 
       $scope.startEvent = function() {
@@ -185,7 +198,7 @@ app.service('UpdateService', function($http, $interval, $rootScope) {
 
       UpdateService.onEventsChange($scope, function() {
         var events = UpdateService.getEvents();
-        var tempList;
+        var tempList = [];
         var tempCurr = null;
         for (var i = 0; i < events.length; i++) {
           if (events[i].current) {
@@ -219,17 +232,11 @@ app.service('UpdateService', function($http, $interval, $rootScope) {
           }
         }
         $scope.main = tempCurr;
-        if (tempList.length > 0) {
-          $scope.untilnext = moment().twix(tempList[0].start).length("minutes");
-        } else {
-          $scope.untilnext = 61;
-        }
-        if ($scope.untilnext > 15) {
-          $scope.state = freeState;
-        } else {
-          $scope.state = incomingState;
-        }
         $scope.list = tempList;
+        if ($scope.main!=null) {
+            $scope.state = freeState;
+          }
+        }
       });
 
       //register in the scope the showquickbook fuction to show the dialog
@@ -322,3 +329,15 @@ app.service('UpdateService', function($http, $interval, $rootScope) {
       */
 
     }]);
+
+app.controller("SetCtrl", ['$scope', '$cookies', '$location', '$html' function setctrl($scope, $cookies, $location, $html) {
+
+}]);
+
+app.controller("SideCtrl", ['$scope', '$cookies', '$location', '$html' function sidectrl($scope, $cookies, $location, $html) {
+
+}]);
+
+app.controller("AdminCtrl", ['$scope', '$cookies', '$location', '$html' function adminctrl($scope, $cookies, $location, $html) {
+
+}]);

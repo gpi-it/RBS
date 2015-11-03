@@ -1,20 +1,29 @@
-<div id="container" class="">
-  <div id="container-head" class="">
-    <h1></h1>
-    <p>
-
-    </p>
+<div class="" id="container">
+  <div class="" id="container-head">
+    <h1 class='' ng-if='state.color=="green"'>Room free</h1>
+    <h1 class='' ng-if='state.color!="green"'>{{main.summary===undefined ? "Someone forgot the title" : main.summary | limitTo:20}}{{main.summary.length > 20 ? '...' : ''}}</h1>
+    <div class='' ng-if='!main.allday&&state.color!="green"'>
+      <p>From {{main.start | date:'H:mm'}} to {{main.end | date:'H:mm'}}</p>
+    </div>
+    <div class='' ng-if='main.allday&&state.color!="green"'>
+      <p>All day event</p>
+    </div>
+    <div class='' ng-if='state.color!="green"'>
+      <p>Created by {{main.creator.length > 24 ? 'GreenRobot' : main.creator}}</p>
+    </div>
   </div>
-  <div id="container-buttons" class="">
-    <button ng-if="" type="button" name="book-button">Book the room</button>
-    <button ng-if="" type="button" name="start-button">Start</button>
-    <button ng-if="" type="button" name="stop-button">Cancel</button>
+  <div class="" id="container-buttons">
+    <button name="book-button" ng-if="state.quickBook" ng-disabled="state.quickBook" type="button">Book the room</button>
+    <button name="start-button" ng-if="!state.quickBook&&state.color!='green'" ng-disabled="state.startButton" type="button">Start</button>
+    <button name="stop-button" ng-if="!state.quickBook&&state.color!='green'" ng-disabled="state.stopButton"  type="button">Cancel</button>
   </div>
 </div>
-<div id="list" class="">
-  <div id="list-head" class="">
+<div class="" id="list">
+  <div class="" id="list-head">
     <ul ng-repeat="event in list">
-      <li><p>{{event.start | date:'H:mm'}} to {{event.end | date:'H:mm'}} - <strong>{{event.summary}}</strong></p></li>
+      <li>
+        <p>{{event.start | date:'H:mm'}} to {{event.end | date:'H:mm'}} - <strong>{{event.summary}}</strong></p>
+      </li>
     </ul>
   </div>
 
