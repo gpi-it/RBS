@@ -324,14 +324,14 @@ app.service('UpdateService',['$http', '$interval', '$rootScope', function($http,
 
     }]);
 
-app.controller("SetCtrl", ['$scope', '$cookies', '$location', '$html', function setctrl($scope, $cookies, $location, $html) {
+app.controller("SetCtrl", ['$scope', function setctrl($scope) {
   $scope.message = "working";
 }]);
 
-app.controller("SideCtrl", ['$scope', '$cookies', '$location', '$html', function sidectrl($scope, $cookies, $location, $html) {
+app.controller("SideCtrl", ['$scope', function sidectrl($scope) {
   $scope.message = "working";
 }]);
 
-app.controller("AdminCtrl", ['$scope', '$cookies', '$location', '$html', function adminctrl($scope, $cookies, $location, $html) {
+app.controller("AdminCtrl", ['$scope', function adminctrl($scope) {
   $scope.message = "working";
 }]);
