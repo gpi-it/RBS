@@ -114,7 +114,7 @@ app.service('UpdateService', function($http, $interval, $rootScope) {
 
       });
 
-    app.controller('MainCtrl', ['$scope', '$cookies', '$location', function mainctrl($scope, $cookies, $location) {
+    app.controller('MainCtrl', ['$scope', '$cookies', '$location', 'UpdateService', function mainctrl($scope, $cookies, $location, UpdateService) {
       $scope.device = null;
       $scope.untilnext = 0;
       $scope.state = {};
