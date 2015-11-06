@@ -16,7 +16,7 @@ var app = angular.module('CalendarApp', ['ngRoute', 'ngTouch', 'ngCookies']);
 
 //configuring routeProvider
 
-app.config(function($routeProvider) {
+app.config(['$routeProvider',function($routeProvider) {
   $routeProvider.
   when('/', {
     template: 'templates/bootstrap.html',
@@ -37,7 +37,7 @@ app.config(function($routeProvider) {
   otherwise({
     redirectTo: '/'
   });
-});
+}]);
 
 app.service('UpdateService',['$http', '$interval', '$rootScope', function($http, $interval, $rootScope) {
       var devicesData = {};
