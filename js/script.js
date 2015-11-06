@@ -237,7 +237,6 @@ app.service('UpdateService', function($http, $interval, $rootScope) {
             $scope.state = freeState;
           }
         });
-      }]);
 
       //register in the scope the showquickbook fuction to show the dialog
       /*
