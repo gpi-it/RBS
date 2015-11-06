@@ -96,7 +96,7 @@ app.service('UpdateService', function($http, $interval, $rootScope) {
       this.getCurrentDevice = function(cookie) {
         if (cookie != null) {
           currentDevice = devicesData.filter(function(some) {
-              return some.deviceid == cookie
+              return some.deviceid == cookie ;
             });
             return currentDevice;
           } else {
@@ -166,7 +166,7 @@ app.service('UpdateService', function($http, $interval, $rootScope) {
           $scope.untilnext = moment().twix($scope.list[0].start).length("minutes");}
         else {
           $scope.untilnext=61;
-        };
+        }
         if ($scope.state.color == "green"){
               if ($scope.untilnext < 15) {
                 $scope.state=incomingState;
@@ -330,13 +330,13 @@ app.service('UpdateService', function($http, $interval, $rootScope) {
     }]);
 
 app.controller("SetCtrl", ['$scope', '$cookies', '$location', '$html' function setctrl($scope, $cookies, $location, $html) {
-
+  $scope.message = "working";
 }]);
 
 app.controller("SideCtrl", ['$scope', '$cookies', '$location', '$html' function sidectrl($scope, $cookies, $location, $html) {
-
+  $scope.message = "working";
 }]);
 
 app.controller("AdminCtrl", ['$scope', '$cookies', '$location', '$html' function adminctrl($scope, $cookies, $location, $html) {
-
+  $scope.message = "working";
 }]);
