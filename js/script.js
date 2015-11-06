@@ -97,7 +97,7 @@ app.service('UpdateService', function($http, $interval, $rootScope) {
         if (cookie != null) {
           currentDevice = devicesData.filter(function(some) {
               return some.deviceid == cookie
-            };
+            });
             return currentDevice;
           } else {
             return null;
