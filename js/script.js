@@ -18,7 +18,7 @@ var app = angular.module('CalendarApp', ['ngRoute', 'ngTouch', 'ngCookies']);
 
 app.config(['$routeProvider',function($routeProvider) {
   $routeProvider.when('/', {
-    template: 'tmp/bootstrap.html',
+    template: '<p>THIS SHIT WORK {{message}}</p>',
     controller: 'SetCtrl'
   }).when('/main', {
     template: 'tmp/main.html',
