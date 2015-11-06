@@ -112,7 +112,7 @@ app.service('UpdateService',['$http', '$interval', '$rootScope', function($http,
           return eventsData;
         };
 
-      });
+      }]);
 
     app.controller('MainCtrl', ['$scope', '$cookies', '$location', 'UpdateService', function mainctrl($scope, $cookies, $location, UpdateService) {
       $scope.device = null;
