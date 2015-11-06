@@ -18,16 +18,16 @@ var app = angular.module('CalendarApp', ['ngRoute', 'ngTouch', 'ngCookies']);
 
 app.config(['$routeProvider',function($routeProvider) {
   $routeProvider.when('/', {
-    template: '/templates/bootstrap.html',
+    template: 'RBS/templates/bootstrap.html',
     controller: 'SetCtrl'
   }).when('/main', {
-    template: '/templates/main.html',
+    template: 'RBS/templates/main.html',
     controller: 'MainCtrl'
   }).when('/side', {
-    template: '/templates/side.html',
+    template: 'RBS/templates/side.html',
     controller: 'SideCtrl'
   }).when('/admin', {
-    template: '/templates/admin.html',
+    template: 'RBS/templates/admin.html',
     controller: 'AdminCtrl'
   }).otherwise({
     redirectTo: '/'
