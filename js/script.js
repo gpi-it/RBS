@@ -39,7 +39,7 @@ app.config(function($routeProvider) {
   });
 });
 
-app.service('UpdateService', function($http, $interval, $rootScope) {
+app.service('UpdateService',['$http', '$interval', '$rootScope', function($http, $interval, $rootScope) {
       var devicesData = {};
       var calendarsData = {};
       var eventsData = {};
