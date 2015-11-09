@@ -260,8 +260,6 @@ app.controller("SetCtrl", ['$scope', '$cookies', '$location', 'UpdateService', f
     console.log(device);
     $scope.device = UpdateService.getCurrentDevice(device);
     console.log($scope.device);
-    $scope.calendars=UpdateService.getCalendars();
-    console.log($scope.calendars);
     if ($scope.device == null) {
       $location.path('/');
     }
@@ -269,7 +267,11 @@ app.controller("SetCtrl", ['$scope', '$cookies', '$location', 'UpdateService', f
       $location.path("/main");
     }
   });
-
+  
+  UpdateService.onCalendarsChange($scope, function(){
+  $scope.calendars=UpdateService.getCalendars();
+  console.log($scope.calendars);
+  });
 
 }]);
 
