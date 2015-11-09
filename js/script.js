@@ -112,11 +112,11 @@ app.service('UpdateService',['$http', '$interval', '$rootScope', function($http,
 
       }]);
 
-      app.run(['UpdateService'], function(UpdateService){
+      app.run(['UpdateService', function(UpdateService){
         UpdateService.devicesUpdate();
         UpdateService.eventsUpdate();
         UpdateService.calendarsUpdate();
-      });
+      }]);
 
     app.controller('MainCtrl', ['$scope', '$cookies', '$location', 'UpdateService', function mainctrl($scope, $cookies, $location, UpdateService) {
       $scope.device = null;
