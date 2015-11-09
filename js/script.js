@@ -58,7 +58,9 @@ app.service('UpdateService',['$http', '$interval', '$rootScope', function($http,
       this.calendarsUpdate = function() { $interval(function() {
         console.log("calendarsUpdate firing");
         $http.get('php/listCalendar.php').success(function(data) {
-          if (calendarsData != data) {
+          if (JSON.stringify(calendarsData) != JSON.stringify(data)) {
+            console.log("calendars old data"+JSON.stringify(calendarsData));
+            console.log("calendars new data"+JSON.stringify(data));
             calendarsData = data;
             $rootScope.$emit('calendars-change-event');
           }
@@ -68,7 +70,9 @@ app.service('UpdateService',['$http', '$interval', '$rootScope', function($http,
       this.eventsUpdate = function() { $interval(function() {
         console.log("eventsUpdate firing");
         $http.get('php/list.php').success(function(data) {
-          if (eventsData != data) {
+          if (JSON.stringify(eventsData) != JSON.stringify(data)) {
+            console.log("events old data"+JSON.stringify(eventsData));
+            console.log("events new data"+JSON.stringify(data));
             eventsData = data;
             $rootScope.$emit('events-change-event');
           }
@@ -340,7 +344,9 @@ app.controller("SetCtrl", ['$scope', '$cookies', '$location', 'UpdateService', f
   UpdateService.onDeviceChange($scope, function() {
     console.log("event onDeviceChange detected!");
     var device = $cookies.get('rmDevice');
+    console.log(device);
     $scope.device = UpdateService.getCurrentDevice(device);
+    console.log($scope.device);
     if ($scope.device == null) {
       $location.path('/');
     }
