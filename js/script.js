@@ -341,6 +341,9 @@ app.controller("SetCtrl", ['$scope', '$cookies', '$location', 'UpdateService', f
     if ($scope.device == null) {
       $location.path('/');
     }
+    else {
+      $location.path("/main");
+    }
   });
 
 
