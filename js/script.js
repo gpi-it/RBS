@@ -247,96 +247,6 @@ app.service('UpdateService',['$http', '$interval', '$rootScope', function($http,
             $scope.state = freeState;
           }
         });
-
-      //register in the scope the showquickbook fuction to show the dialog
-      /*
-        $scope.showQuickBook = function($event) {
-          var parentEl = angular.element(document.body);
-          $mdDialog.show({
-            parent: parentEl,
-            targetEvent: $event,
-            clickOutsideToClose: true,
-            template: '<md-dialog aria-label="Quick book dialog">' +
-              ' <md-dialog-content style="font-size:32px">' +
-              '<form name="quickBookForm">' +
-              '   <md-input-container>' +
-              '     <label>Event Name</label>' +
-              '     <input name="evSummary" type="text" ng-model="summary" required />' +
-              '   </md-input-container>' +
-              '<md-input-container class="scroll" >' +
-              '<label>Duration</label>' +
-              '<md-select ng-model="choose" class="scroll" required>' +
-              '<md-option ng-repeat="time in times" value="{{time}}">{{time}} minutes</md-option>' +
-              '</md-select>' +
-              '</md-input-container>' +
-              '</form>' +
-              ' </md-dialog-content>' +
-              ' <div class="md-actions">' +
-              '   <md-button ng-click="createDialog()" class="md-primary" ng-disabled="quickBookForm.$invalid" style="font-size:24px;padding:10px;">' +
-              '     Book' +
-              '   </md-button>' +
-              ' </div>' +
-              '</md-dialog>',
-            controller: QuickBookController
-          });
-
-          function QuickBookController($scope, $mdDialog) {
-            $http.get('php/list.php').success(function(events) {
-              $scope.times = [];
-              $scope.choose = undefined;
-              console.log(events);
-              for (var i = 0; i < events.length; i++) {
-                var range = moment(events[i].start).twix(events[i].end);
-                if (!range.isCurrent()) {
-                  var until = moment().twix(events[i].start).length("minutes");
-                  if (until > 15) {
-                    $scope.times[0] = 15;
-                  }
-                  if (until > 30) {
-                    $scope.times[1] = 30;
-                  }
-                  if (until > 45) {
-                    $scope.times[2] = 45;
-                  }
-                  if (until > 60) {
-                    $scope.times[3] = 60;
-                  }
-                  return;
-                }
-              }
-              if (events.length == 0) {
-                $scope.times = [15, 30, 45, 60];
-              }
-            });
-            $scope.createDialog = function() {
-              var now = moment().toISOString();
-              var end = moment(now).add($scope.choose, 'minutes').toISOString();
-              var event = {
-                'summary': $scope.summary + '[Confirmed]',
-                'description': 'Quick event created from the room manager App',
-                'start': {
-                  'dateTime': now,
-                  'timeZone': 'Europe/Amsterdam'
-                },
-                'end': {
-                  'dateTime': end,
-                  'timeZone': 'Europe/Amsterdam'
-                }
-              };
-              $http.post('php/setevent.php', event).success(function() {
-                console.log('boia deh');
-                $mdDialog.hide();
-              });
-            };
-
-            $scope.closeDialog = function() {
-              $mdDialog.hide();
-            };
-          }
-        }
-
-      */
-
     }]);
 
 app.controller("SetCtrl", ['$scope', '$cookies', '$location', 'UpdateService', function setctrl($scope, $cookies, $location, UpdateService) {
@@ -347,6 +257,8 @@ app.controller("SetCtrl", ['$scope', '$cookies', '$location', 'UpdateService', f
     console.log(device);
     $scope.device = UpdateService.getCurrentDevice(device);
     console.log($scope.device);
+    $scope.calendars=UpdateService.getCalendars();
+    console.log($scope.calendars);
     if ($scope.device == null) {
       $location.path('/');
     }
