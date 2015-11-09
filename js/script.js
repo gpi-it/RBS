@@ -346,10 +346,10 @@ app.controller("SetCtrl", ['$scope', '$cookies', '$location', 'UpdateService', f
 
 }]);
 
-app.controller("SideCtrl", ['$scope', '$cookies', '$location', 'UpdateService', function sidectrl($scope, $cookies, $location, UpdateService,) {
+app.controller("SideCtrl", ['$scope', '$cookies', '$location', 'UpdateService', function sidectrl($scope, $cookies, $location, UpdateService) {
   $scope.message = "working";
 }]);
 
-app.controller("AdminCtrl", ['$scope', '$cookies', '$location', 'UpdateService', function adminctrl($scope, $cookies, $location, UpdateService,) {
+app.controller("AdminCtrl", ['$scope', '$cookies', '$location', 'UpdateService', function adminctrl($scope, $cookies, $location, UpdateService) {
   $scope.message = "working";
 }]);
