@@ -251,6 +251,9 @@ app.service('UpdateService',['$http', '$interval', '$rootScope', function($http,
 
 app.controller("SetCtrl", ['$scope', '$cookies', '$location', 'UpdateService', function setctrl($scope, $cookies, $location, UpdateService) {
 
+  $scope.device = null;
+  $scope.calendars = null;
+
   UpdateService.onDeviceChange($scope, function() {
     console.log("event onDeviceChange detected!");
     var device = $cookies.get('rmDevice');
