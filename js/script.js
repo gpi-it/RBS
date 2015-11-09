@@ -40,7 +40,8 @@ app.service('UpdateService',['$http', '$interval', '$rootScope', function($http,
       var eventsData = {};
       var currentDevice = {};
 
-      this.devicesUpdate = $interval(function() {
+      this.devicesUpdate = function() { $interval(function() {
+        console.log("devicesUpdate firing");
         $http.get('js/data.json', {
           cache: false,
           timeout: 3000
@@ -50,25 +51,27 @@ app.service('UpdateService',['$http', '$interval', '$rootScope', function($http,
             $rootScope.$emit('devices-change-event');
           }
         });
-      }, 1000);
+      }, 1000);};
 
-      this.calendarsUpdate = $interval(function() {
+      this.calendarsUpdate = function() { $interval(function() {
+        console.log("calendarsUpdate firing");
         $http.get('php/listCalendar.php').success(function(data) {
           if (calendarsData != data) {
             calendarsData = data;
             $rootScope.$emit('calendars-change-event');
           }
         });
-      }, 30000); //every 30 minutes
+      }, 30000);}; //every 30 minutes
 
-      this.eventsUpdate = $interval(function() {
+      this.eventsUpdate = function() { $interval(function() {
+        console.log("eventsUpdate firing");
         $http.get('php/list.php').success(function(data) {
           if (eventsData != data) {
             eventsData = data;
             $rootScope.$emit('events-change-event');
           }
         });
-      }, 1000);
+      }, 1000);};
 
       this.onDeviceChange = function(scope, callback) {
         var handler = $rootScope.$on('devices-change-event', callback);
@@ -108,6 +111,12 @@ app.service('UpdateService',['$http', '$interval', '$rootScope', function($http,
         };
 
       }]);
+
+      app.run(['UpdateService'], function(UpdateService){
+        UpdateService.devicesUpdate();
+        UpdateService.eventsUpdate();
+        UpdateService.calendarsUpdate();
+      });
 
     app.controller('MainCtrl', ['$scope', '$cookies', '$location', 'UpdateService', function mainctrl($scope, $cookies, $location, UpdateService) {
       $scope.device = null;
@@ -183,7 +192,7 @@ app.service('UpdateService',['$http', '$interval', '$rootScope', function($http,
       //events handler
       UpdateService.onDeviceChange($scope, function() {
         var device = $cookies.get('rmDevice');
-        $scope.device = UpdateService.getCurrentDevice($scope.device);
+        $scope.device = UpdateService.getCurrentDevice(device);
         if ($scope.device == null) {
           $location.path('/');
         }
@@ -324,14 +333,23 @@ app.service('UpdateService',['$http', '$interval', '$rootScope', function($http,
 
     }]);
 
-app.controller("SetCtrl", ['$scope', function setctrl($scope) {
+app.controller("SetCtrl", ['$scope', '$cookies', '$location', 'UpdateService', function setctrl($scope, $cookies, $location, UpdateService,) {
+
+  UpdateService.onDeviceChange($scope, function() {
+    var device = $cookies.get('rmDevice');
+    $scope.device = UpdateService.getCurrentDevice(device);
+    if ($scope.device == null) {
+      $location.path('/');
+    }
+  });
+
+
+}]);
+
+app.controller("SideCtrl", ['$scope', '$cookies', '$location', 'UpdateService', function sidectrl($scope, $cookies, $location, UpdateService,) {
   $scope.message = "working";
 }]);
 
-app.controller("SideCtrl", ['$scope', function sidectrl($scope) {
-  $scope.message = "working";
-}]);
-
-app.controller("AdminCtrl", ['$scope', function adminctrl($scope) {
+app.controller("AdminCtrl", ['$scope', '$cookies', '$location', 'UpdateService', function adminctrl($scope, $cookies, $location, UpdateService,) {
   $scope.message = "working";
 }]);
