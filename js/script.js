@@ -46,9 +46,9 @@ app.service('UpdateService',['$http', '$interval', '$rootScope', function($http,
           cache: false,
           timeout: 3000
         }).success(function(data) {
-          if (devicesData != data) {
-            console.log("devices old data"+devicesData);
-            console.log("devices new data"+data);
+          if (JSON.stringify(devicesData) != JSON.stringify(data)) {
+            console.log("devices old data"+JSON.stringify(devicesData));
+            console.log("devices new data"+JSON.stringify(data);
             devicesData = data;
             $rootScope.$emit('devices-change-event');
           }
