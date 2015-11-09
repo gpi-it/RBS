@@ -1,4 +1,6 @@
 <div class="center">
-<input type="text" name="name">
-{{calendars}}
+<input type="text" name="name" value="">
+<select class="" name="" ng-repeat="calendar in calendars">
+  <option name="{{calendar.id}}">{{calendar.summary}}</option>
+</select>
 </div>
