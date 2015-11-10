@@ -17,7 +17,7 @@ if($jsonString === false) {
     echo "Error";
 } else {
     echo "All good, $jsonString";
-    echo is_writable('../js/data.json');
+    var_dump(is_writable('../js/data.json'));
 }
 $data = json_decode($jsonString);
 $cookie_name = "rmDevice";
