@@ -46,9 +46,9 @@ app.service('UpdateService',['$http', '$interval', '$rootScope', function($http,
           cache: false,
           timeout: 3000
         }).success(function(data) {
-          if (JSON.stringify(devicesData) != JSON.stringify(data)) {
-            console.log("devices old data"+JSON.stringify(devicesData));
-            console.log("devices new data"+JSON.stringify(data));
+          if (JSON.stringify(devicesData) != angular.toJson(data)) {
+            console.log("devices old data"+angular.toJson(devicesData));
+            console.log("devices new data"+angular.toJson(data));
             devicesData = data;
             $rootScope.$emit('devices-change-event');
           }
@@ -58,9 +58,9 @@ app.service('UpdateService',['$http', '$interval', '$rootScope', function($http,
       this.calendarsUpdate = function() {
         console.log("calendarsUpdate firing");
         $http.get('php/listCalendar.php').success(function(data) {
-          if (JSON.stringify(calendarsData) != JSON.stringify(data)) {
-            console.log("calendars old data"+JSON.stringify(calendarsData));
-            console.log("calendars new data"+JSON.stringify(data));
+          if (JSON.stringify(calendarsData) != angular.toJson(data)) {
+            console.log("calendars old data"+angular.toJson(calendarsData));
+            console.log("calendars new data"+angular.toJson(data));
             calendarsData = data;
             $rootScope.$emit('calendars-change-event');
           }
@@ -70,9 +70,9 @@ app.service('UpdateService',['$http', '$interval', '$rootScope', function($http,
       this.eventsUpdate = function() { $interval(function() {
         console.log("eventsUpdate firing");
         $http.get('php/list.php').success(function(data) {
-          if (JSON.stringify(eventsData) != JSON.stringify(data)) {
-            console.log("events old data"+JSON.stringify(eventsData));
-            console.log("events new data"+JSON.stringify(data));
+          if (JSON.stringify(eventsData) != angular.toJson(data)) {
+            console.log("events old data"+angular.toJson(eventsData));
+            console.log("events new data"+angular.toJson(data));
             eventsData = data;
             $rootScope.$emit('events-change-event');
           }
