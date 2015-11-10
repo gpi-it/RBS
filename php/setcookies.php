@@ -1,4 +1,4 @@
-<?php 
+<?php
 require_once 'devices.php';
 
 function in_array_r($needle, $haystack, $strict = false) {
@@ -12,7 +12,7 @@ function in_array_r($needle, $haystack, $strict = false) {
 }
 
 $pst = json_decode(file_get_contents("php://input"));
-$jsonString = file_get_contents('/var/www/html/js/data.json');
+$jsonString = file_get_contents('../js/data.json');
 $data = json_decode($jsonString);
 $cookie_name = "rmDevice";
 setcookie($cookie_name, $pst->deviceid, 2147483647, "/");
@@ -21,6 +21,6 @@ $new= array("deviceid"=>$pst->deviceid,"device"=>$currDevice,"calendar"=>$pst->c
 if(!in_array_r($pst->deviceid,$data)){
 array_push($data,$new);
 $jsonData = json_encode($data);
-file_put_contents('/var/www/html/js/data.json', $jsonData);
+file_put_contents('../js/data.json', $jsonData);
 }
 ?>
