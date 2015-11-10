@@ -55,7 +55,7 @@ app.service('UpdateService',['$http', '$interval', '$rootScope', function($http,
         });
       }, 1000);};
 
-      this.calendarsUpdate = function() { $interval(function() {
+      this.calendarsUpdate = function() {
         console.log("calendarsUpdate firing");
         $http.get('php/listCalendar.php').success(function(data) {
           if (JSON.stringify(calendarsData) != JSON.stringify(data)) {
@@ -65,7 +65,7 @@ app.service('UpdateService',['$http', '$interval', '$rootScope', function($http,
             $rootScope.$emit('calendars-change-event');
           }
         });
-      }, 30000);}; //every 30 minutes
+      };
 
       this.eventsUpdate = function() { $interval(function() {
         console.log("eventsUpdate firing");
@@ -267,7 +267,7 @@ app.controller("SetCtrl", ['$scope', '$cookies', '$location', 'UpdateService', f
       $location.path("/main");
     }
   });
-  
+
   UpdateService.onCalendarsChange($scope, function(){
   $scope.calendars=UpdateService.getCalendars();
   console.log($scope.calendars);
