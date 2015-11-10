@@ -275,7 +275,7 @@ app.controller("SetCtrl", ['$scope', '$cookies', '$location', 'UpdateService', f
     console.log($scope.calendars);
   });
 
-  $scope.startup = function(id){
+  $scope.startup = function(){
     var inp = {
                 "deviceid": $scope.deviceid,
                 "calendar": $scope.selected,
