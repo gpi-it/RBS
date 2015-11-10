@@ -253,6 +253,7 @@ app.controller("SetCtrl", ['$scope', '$cookies', '$location', 'UpdateService', f
 
   $scope.device = "";
   $scope.calendars = [];
+  $scope.selected = {};
 
   UpdateService.onDeviceChange($scope, function() {
     console.log("event onDeviceChange detected!");
@@ -270,6 +271,7 @@ app.controller("SetCtrl", ['$scope', '$cookies', '$location', 'UpdateService', f
 
   UpdateService.onCalendarsChange($scope, function(){
   $scope.calendars=UpdateService.getCalendars();
+  $scope.selected = $scope.calendars[0];
   console.log($scope.calendars);
   });
 
