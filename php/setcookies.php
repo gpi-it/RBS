@@ -26,11 +26,11 @@ $new= array("deviceid"=>$pst->deviceid,"device"=>$currDevice,"calendar"=>$pst->c
 if(!in_array_r($pst->deviceid,$data)){
 array_push($data,$new);
 $jsonData = json_encode($data);
-file_put_contents('../js/data.json', $jsonData);
-if($jsonData === false) {
+$var = file_put_contents('../js/data.json', $jsonData);
+if($var === false) {
     echo "Error";
 } else {
-    echo "All good, $jsonData";
+    echo "All good, $var";
 }
 }
 ?>
