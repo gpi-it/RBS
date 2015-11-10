@@ -271,7 +271,7 @@ app.controller("SetCtrl", ['$scope', '$cookies', '$location', 'UpdateService', f
 
   UpdateService.onCalendarsChange($scope, function(){
   $scope.calendars=UpdateService.getCalendars();
-  $scope.selected = $scope.calendars[0];
+  $scope.selected = $scope.calendars[0].id;
   console.log($scope.calendars);
   });
 
