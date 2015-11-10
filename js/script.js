@@ -270,10 +270,21 @@ app.controller("SetCtrl", ['$scope', '$cookies', '$location', 'UpdateService', f
   });
 
   UpdateService.onCalendarsChange($scope, function(){
-  $scope.calendars=UpdateService.getCalendars();
-  $scope.selected = $scope.calendars[0].id;
-  console.log($scope.calendars);
+    $scope.calendars=UpdateService.getCalendars();
+    $scope.selected = $scope.calendars[0].id;
+    console.log($scope.calendars);
   });
+
+  $scope.startup = function(id){
+    var inp = {
+                "deviceid": $scope.deviceid,
+                "calendar": $scope.selected,
+                "maindevice" : true
+              };
+    $http.post('php/setcookies.php', inp).success(function (data) {
+      $location.path("/main");
+    });
+  };
 
 }]);
 
