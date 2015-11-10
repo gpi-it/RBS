@@ -246,10 +246,11 @@ app.service('UpdateService',['$http', '$interval', '$rootScope', function($http,
         if ($scope.main!=null) {
             $scope.state = freeState;
           }
+          console.log($scope.state.color);
+          console.log(angular.toJson($scope.main));
+          console.log(angular.toJson($scope.list));
         });
-        console.log($scope.state.color);
-        console.log(angular.toJson($scope.main));
-        console.log(angular.toJson($scope.list));
+
     }]);
 
 app.controller("SetCtrl", ['$scope', '$cookies', '$location', 'UpdateService', '$http', function setctrl($scope, $cookies, $location, UpdateService, $http) {
