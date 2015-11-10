@@ -27,6 +27,7 @@ if(!in_array_r($pst->deviceid,$data)){
 array_push($data,$new);
 $jsonData = json_encode($data);
 $var = file_put_contents('../js/data.json', $jsonData);
+echo shell_exec('whoami');
 if($var === false) {
     echo "Error";
 } else {
