@@ -46,7 +46,7 @@ app.service('UpdateService',['$http', '$interval', '$rootScope', function($http,
           cache: false,
           timeout: 3000
         }).success(function(data) {
-          if (JSON.stringify(devicesData) != angular.toJson(data)) {
+          if (angular.toJson(devicesData) != angular.toJson(data)) {
             console.log("devices old data"+angular.toJson(devicesData));
             console.log("devices new data"+angular.toJson(data));
             devicesData = data;
@@ -58,7 +58,7 @@ app.service('UpdateService',['$http', '$interval', '$rootScope', function($http,
       this.calendarsUpdate = function() {
         console.log("calendarsUpdate firing");
         $http.get('php/listCalendar.php').success(function(data) {
-          if (JSON.stringify(calendarsData) != angular.toJson(data)) {
+          if (angular.toJson(calendarsData) != angular.toJson(data)) {
             console.log("calendars old data"+angular.toJson(calendarsData));
             console.log("calendars new data"+angular.toJson(data));
             calendarsData = data;
@@ -70,7 +70,7 @@ app.service('UpdateService',['$http', '$interval', '$rootScope', function($http,
       this.eventsUpdate = function() { $interval(function() {
         console.log("eventsUpdate firing");
         $http.get('php/list.php').success(function(data) {
-          if (JSON.stringify(eventsData) != angular.toJson(data)) {
+          if (angular.toJson(eventsData) != angular.toJson(data)) {
             console.log("events old data"+angular.toJson(eventsData));
             console.log("events new data"+angular.toJson(data));
             eventsData = data;
