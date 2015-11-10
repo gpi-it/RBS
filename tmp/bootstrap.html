@@ -1,6 +1,5 @@
 <div class="center">
 <input type="text" name="name" value="">
-<select class="" name="" ng-options="calendar in calendars">
-  <option name="{{calendar.id}}">{{calendar.summary}}</option>
+<select class="" name="" ng-options="calendar as calendar.summary for calendar in calendars track by calendar.id">
 </select>
 </div>
