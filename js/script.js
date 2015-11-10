@@ -241,7 +241,7 @@ app.service('UpdateService',['$http', '$interval', '$rootScope', function($http,
         }
         $scope.main = tempCurr;
         $scope.list = tempList;
-        if ($scope.main!=null) {
+        if ($scope.main==null) {
             $scope.state = freeState;
           }
           console.log(angular.toJson($scope.state));
