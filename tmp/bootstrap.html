@@ -1,6 +1,6 @@
 <div class="center">
 <form name="setForm">
-Select a name for the device: <input type="text" name="name" value="" ng-model="deviceid" ng-pattern="/^[a-zA-Z0-9!@#._-]+$/" required>
+Select a name for the device: <input type="text" name="name" value="" ng-model="deviceid" ng-pattern="/^[a-zA-Z0-9!@#._-]+$/" ng-trim="false" required>
 Select a calendar: <select class="" name="" ng-model="selected" ng-options="calendar.id as calendar.summary for calendar in calendars" required>
 </select>
 <input type="button" name="set" value="go" ng-click="" ng-disabled="setForm.$invalid">
