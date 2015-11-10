@@ -249,7 +249,7 @@ app.service('UpdateService',['$http', '$interval', '$rootScope', function($http,
         });
     }]);
 
-app.controller("SetCtrl", ['$scope', '$cookies', '$location', 'UpdateService', function setctrl($scope, $cookies, $location, UpdateService) {
+app.controller("SetCtrl", ['$scope', '$cookies', '$location', 'UpdateService', '$http' function setctrl($scope, $cookies, $location, UpdateService, $http) {
 
   $scope.device = "";
   $scope.calendars = [];
