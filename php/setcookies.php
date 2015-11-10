@@ -13,6 +13,11 @@ function in_array_r($needle, $haystack, $strict = false) {
 
 $pst = json_decode(file_get_contents("php://input"));
 $jsonString = file_get_contents('../js/data.json');
+if($jsonString === false) {
+    echo "Error";
+} else {
+    echo "All good, $jsonString";
+}
 $data = json_decode($jsonString);
 $cookie_name = "rmDevice";
 setcookie($cookie_name, $pst->deviceid, 2147483647, "/");
@@ -22,5 +27,10 @@ if(!in_array_r($pst->deviceid,$data)){
 array_push($data,$new);
 $jsonData = json_encode($data);
 file_put_contents('../js/data.json', $jsonData);
+if($jsonData === false) {
+    echo "Error";
+} else {
+    echo "All good, $jsonData";
+}
 }
 ?>
