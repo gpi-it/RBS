@@ -26,7 +26,7 @@ $new= array("deviceid"=>$pst->deviceid,"device"=>$currDevice,"calendar"=>$pst->c
 if(!in_array_r($pst->deviceid,$data)){
 array_push($data,$new);
 $jsonData = json_encode($data);
-$var = file_put_contents('../js/data.json', $jsonData);
+$var = file_put_contents('/var/www/html/RBS/js/data.json', $jsonData);
 echo phpinfo();
 if($var === false) {
     echo "Error";
