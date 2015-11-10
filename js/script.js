@@ -204,8 +204,6 @@ app.service('UpdateService',['$http', '$interval', '$rootScope', function($http,
         }
       });
 
-      UpdateService.onCalendarsChange($scope, function() {}); //not sure if this is usefull, might scrap this and call the calendars request only in the set up page
-
       UpdateService.onEventsChange($scope, function() {
         var events = UpdateService.getEvents();
         var tempList = [];
@@ -246,7 +244,7 @@ app.service('UpdateService',['$http', '$interval', '$rootScope', function($http,
         if ($scope.main!=null) {
             $scope.state = freeState;
           }
-          console.log($scope.state.color);
+          console.log(angular.toJson($scope.state));
           console.log(angular.toJson($scope.main));
           console.log(angular.toJson($scope.list));
         });
