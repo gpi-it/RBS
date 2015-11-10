@@ -2,7 +2,7 @@
 <div class="" id="container">
   <div class="" id="container-head">
     <h1 class='' ng-if='state.color=="green"'>Room free</h1>
-    <h1 class='' ng-if='state.color!="green"'>{{main.summary===undefined ? "Someone forgot the title" : main.summary | limitTo:20}}{{main.summary.length > 20 ? '...' : ''}}</h1>
+    <h1 class='' ng-if='state.color!="green"'>{{main.summary===undefined ? "Someone forgot the title" : main.summary | limitTo:25}}{{main.summary.length > 20 ? '...' : ''}}</h1>
     <div class='' ng-if='!main.allday&&state.color!="green"'>
       <p>From {{main.start | date:'H:mm'}} to {{main.end | date:'H:mm'}}</p>
     </div>
