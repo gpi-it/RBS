@@ -17,6 +17,7 @@ if($jsonString === false) {
     echo "Error";
 } else {
     echo "All good, $jsonString";
+    echo is_writable('../js/data.json');
 }
 $data = json_decode($jsonString);
 $cookie_name = "rmDevice";
@@ -27,7 +28,6 @@ if(!in_array_r($pst->deviceid,$data)){
 array_push($data,$new);
 $jsonData = json_encode($data);
 $var = file_put_contents('../js/data.json', $jsonData);
-echo is_writable('../js/data.json');
 if($var === false) {
     echo "Error";
 } else {
