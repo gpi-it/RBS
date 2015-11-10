@@ -18,6 +18,7 @@ if($jsonString === false) {
 } else {
     echo "All good, $jsonString";
     var_dump(is_writable('../js/data.json'));
+    var_dump(file_exists('../js/data.json'));
 }
 $data = json_decode($jsonString);
 $cookie_name = "rmDevice";
