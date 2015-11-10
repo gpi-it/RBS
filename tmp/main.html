@@ -21,8 +21,8 @@
 </div>
 <div class="" id="list">
   <div class="" id="list-head">
-    <ul ng-repeat="event in list">
-      <li>
+    <ul>
+      <li ng-repeat="event in list">
         <p>{{event.start | date:'H:mm'}} to {{event.end | date:'H:mm'}} - <strong>{{event.summary}}</strong></p>
       </li>
     </ul>
