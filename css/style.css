@@ -83,13 +83,10 @@ body{
   transform: translateY(-50%);
 }
 
-.button{
-  text-align: center;
-  width: 40%;
-}
-
-input[type=button]{
+button{
   padding:5px 15px;
+  text-align: center;
+  width: 35%;
   background:rbga(255,255,255,0.5);
   font-size: 2em;
   border: none;
