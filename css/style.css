@@ -91,7 +91,8 @@ body{
 button{
   padding:12px;
   vertical-align: middle;
-  width: 48%;
+  width: 49%;
+  color: white;
   background:rgba(255,255,255,0.5);
   font-size: 2em;
   border: none;
