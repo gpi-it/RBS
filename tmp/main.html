@@ -16,8 +16,12 @@
     </div>
     <div class="" id="container-buttons">
       <button name="book-button" ng-if="state.quickBook" ng-disabled="state.quickBook" type="button">BOOK THE ROOM</button>
-      <button name="start-button" ng-if="!state.quickBook&&state.color!='green'" ng-disabled="state.startButton" type="button">START</button>
-      <button name="stop-button" ng-if="!state.quickBook&&state.color!='green'" ng-disabled="state.stopButton"  type="button">CANCEL</button>
+      <div ng-if="!state.quickBook&&state.color!='green'" class="button-warper">
+      <button name="start-button" ng-disabled="state.startButton" type="button">START</button>
+      </div>
+      <div ng-if="!state.quickBook&&state.color!='green'" class="button-warper">
+      <button name="stop-button" ng-disabled="state.stopButton"  type="button">CANCEL</button>
+      </div>
     </div>
   </div>
 </div>

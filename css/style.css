@@ -95,20 +95,21 @@ h6      { font-size: 0.75em;    /* 0.75*16 = 12 */      }
 #container-buttons{
   text-align: center;
   margin:auto;
+}
 
+.button-warper{
+  width: 50%;
+  padding: 12px;
 }
 
 button{
   height: 120px;
-  padding:12px;
   vertical-align: middle;
-  width: 50%;
+  width: 100%;
   color: white;
   background:rgba(255,255,255,0.5);
   font-size: 2em;
-  border-width: 12px;
-  border-style: none;
-  border-color: rgba(255, 255, 255, 0);
+  border: none;
   -webkit-border-radius: 0px;
   border-radius: 0px;
 }
