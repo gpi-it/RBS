@@ -4,7 +4,7 @@ body{
   font-family: arial, sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  font-size: 100%;
+  font-size: 150%;
 }
 
 h1      { font-size: 2em;       /* 2*16 = 32 */         }
