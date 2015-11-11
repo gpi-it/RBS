@@ -136,25 +136,25 @@ app.service('UpdateService',['$http', '$interval', '$rootScope', function($http,
 
       var fullState = {
         "color": "blue",
-        "statButton": false,
+        "startButton": false,
         "stopButton": false,
         "quickBook": true
       };
       var freeState = {
         "color": "green",
-        "statButton": true,
+        "startButton": true,
         "stopButton": true,
         "quickBook": false
       };
       var incomingState = {
         "color": "green",
-        "statButton": true,
+        "startButton": true,
         "stopButton": true,
         "quickBook": true
       };
       var busyState = {
         "color": "red",
-        "statButton": true,
+        "startButton": true,
         "stopButton": true,
         "quickBook": true
       };
