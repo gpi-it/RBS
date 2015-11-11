@@ -1,22 +1,24 @@
 <div class="" id="box">
 <div class="{{state.color}}" id="container">
-  <div class="" id="container-head">
-    <h1 class='' ng-if='state.color=="green"'>Room free</h1>
-    <h1 class='' ng-if='state.color!="green"'>{{main.summary===undefined ? "Someone forgot the title" : main.summary | limitTo:25}}{{main.summary.length > 20 ? '...' : ''}}</h1>
-    <div class='' ng-if='!main.allday&&state.color!="green"'>
-      <p>From {{main.start | date:'H:mm'}} to {{main.end | date:'H:mm'}}</p>
+  <div class="" id="warper">
+    <div class="" id="container-head">
+      <h1 class='' ng-if='state.color=="green"'>Room free</h1>
+      <h1 class='' ng-if='state.color!="green"'>{{main.summary===undefined ? "Someone forgot the title" : main.summary | limitTo:25}}{{main.summary.length > 20 ? '...' : ''}}</h1>
+      <div class='' ng-if='!main.allday&&state.color!="green"'>
+        <p>From {{main.start | date:'H:mm'}} to {{main.end | date:'H:mm'}}</p>
+      </div>
+      <div class='' ng-if='main.allday&&state.color!="green"'>
+        <p>All day event</p>
+      </div>
+      <div class='' ng-if='state.color!="green"'>
+        <p>Created by {{main.creator.length > 24 ? 'GreenRobot' : main.creator}}</p>
+      </div>
     </div>
-    <div class='' ng-if='main.allday&&state.color!="green"'>
-      <p>All day event</p>
+    <div class="" id="container-buttons">
+      <button name="book-button" ng-if="state.quickBook" ng-disabled="state.quickBook" type="button">Book the room</button>
+      <button name="start-button" ng-if="!state.quickBook&&state.color!='green'" ng-disabled="state.startButton" type="button">Start</button>
+      <button name="stop-button" ng-if="!state.quickBook&&state.color!='green'" ng-disabled="state.stopButton"  type="button">Cancel</button>
     </div>
-    <div class='' ng-if='state.color!="green"'>
-      <p>Created by {{main.creator.length > 24 ? 'GreenRobot' : main.creator}}</p>
-    </div>
-  </div>
-  <div class="" id="container-buttons">
-    <button name="book-button" ng-if="state.quickBook" ng-disabled="state.quickBook" type="button">Book the room</button>
-    <button name="start-button" ng-if="!state.quickBook&&state.color!='green'" ng-disabled="state.startButton" type="button">Start</button>
-    <button name="stop-button" ng-if="!state.quickBook&&state.color!='green'" ng-disabled="state.stopButton"  type="button">Cancel</button>
   </div>
 </div>
 <div class="" id="list">
