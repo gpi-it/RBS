@@ -1,3 +1,8 @@
+body{
+  margin: 0px;
+  padding: 0px;
+}
+
 .red {
     background-color: #F44336 !important;
     color:white;
