@@ -95,12 +95,14 @@ h6      { font-size: 0.75em;    /* 0.75*16 = 12 */      }
 #container-buttons{
   text-align: center;
   margin:auto;
+  display: -webkit-flex;
+  display: flex;
 }
 
 .button-warper{
-  width: 50%;
+  -webkit-flex: 1;
+  flex: 1;
   margin: 12px;
-  display: inline-block;
 }
 
 button{
