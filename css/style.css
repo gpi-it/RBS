@@ -120,4 +120,18 @@ button{
   border: none;
   -webkit-border-radius: 0px;
   border-radius: 0px;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+button:active{
+  background:rgba(255,255,255,0.8);
+}
+
+button:disabled{
+  color: rgba(255,255,255,0.5);
+  background:rgba(255,255,255,0.2);
 }
