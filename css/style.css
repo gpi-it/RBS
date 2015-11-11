@@ -84,8 +84,9 @@ body{
 }
 
 button{
-  padding:5px 15px;
+  padding:12px;
   text-align: center;
+  vertical-align: middle;
   width: 35%;
   background:rgba(255,255,255,0.5);
   font-size: 2em;
