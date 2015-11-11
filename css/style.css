@@ -77,6 +77,6 @@ body{
   position: relative;
   top: 50%;
   -ms-transform: translateY(-50%);
-  -webkit-transform: translateX(-50%); /* Safari */
-  transform: translateX(-50%);
+  -webkit-transform: translateY(-50%); /* Safari */
+  transform: translateY(-50%);
 }
