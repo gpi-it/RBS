@@ -94,7 +94,8 @@ h6      { font-size: 0.75em;    /* 0.75*16 = 12 */      }
 
 #container-buttons{
   text-align: center;
-  margin: 0, auto;
+  margin:auto;
+  
 }
 
 button{

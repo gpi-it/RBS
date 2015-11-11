@@ -5,6 +5,9 @@
         e.preventDefault();
 });*/
 
+document.body.addEventListener('touchmove',function(event){
+  event.preventDefault();
+});
 
 //moment.js initialization
 
