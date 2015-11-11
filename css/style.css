@@ -75,6 +75,7 @@ body{
 
 #warper{
   position: relative;
+  padding: 12px;
   top: 50%;
   -ms-transform: translateY(-50%);
   -webkit-transform: translateY(-50%); /* Safari */
