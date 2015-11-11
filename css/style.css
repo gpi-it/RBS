@@ -7,7 +7,7 @@ body{
   font-size: 150%;
 }
 
-h1      { font-size: 2em;       /* 2*16 = 32 */         }
+h1      { font-size: 2.5em;       /* 2*16 = 32 */         }
 h2      { font-size: 1.5em;     /* 1.5*16 = 24 */       }
 h3      { font-size: 1.17em;    /* 1.17*16 = 18.72 */   }
 h4      { font-size: 1em;       /* 1*16 = 16 */         }
@@ -103,7 +103,7 @@ button{
   width: 49%;
   color: white;
   background:rgba(255,255,255,0.5);
-  font-size: 1.5em;
+  font-size: 2em;
   border: none;
   -webkit-border-radius: 0px;
   border-radius: 0px;
