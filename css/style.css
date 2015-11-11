@@ -63,6 +63,11 @@ h6      { font-size: 0.75em;    /* 0.75*16 = 12 */      }
   transition: all 0.3s ease;
 }
 
+#container-head{
+  padding-left: 6px;
+  padding-right: 6px;
+}
+
 #list{
   height: 35%;
   width: 100%;
@@ -85,7 +90,7 @@ h6      { font-size: 0.75em;    /* 0.75*16 = 12 */      }
 
 #warper{
   position: relative;
-  padding: 18px;
+  padding: 12px;
   top: 50%;
   -ms-transform: translateY(-50%);
   -webkit-transform: translateY(-50%); /* Safari */
