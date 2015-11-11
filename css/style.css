@@ -46,8 +46,13 @@ body{
   width: 100%;
   height: 70%;
 }
+
 #list{
   height: 30%;
   width: 100%;
   overflow-y: scroll;
+}
+
+#list-head{
+  padding:2%;
 }

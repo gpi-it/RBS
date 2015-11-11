@@ -1,5 +1,5 @@
 <div class="" id="box">
-<div class="" id="container">
+<div class="{{state.color}}" id="container">
   <div class="" id="container-head">
     <h1 class='' ng-if='state.color=="green"'>Room free</h1>
     <h1 class='' ng-if='state.color!="green"'>{{main.summary===undefined ? "Someone forgot the title" : main.summary | limitTo:25}}{{main.summary.length > 20 ? '...' : ''}}</h1>
@@ -20,7 +20,7 @@
   </div>
 </div>
 <div class="" id="list">
-  <div class="" id="list-head">
+  <div class="{{state.color}}-light" id="list-head">
   <h3>Next events</h3>
   </div>
   <ul>
