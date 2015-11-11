@@ -159,6 +159,20 @@ app.service('UpdateService',['$http', '$interval', '$rootScope', function($http,
         "quickBook": false
       };
 
+
+      $interval(function(){
+        if($scope.list[0]!=undefined){
+          $scope.untilnext = moment().twix($scope.list[0].start).length("minutes");}
+        else {
+          $scope.untilnext=61;
+        }
+        if ($scope.state.color == "green"){
+              if ($scope.untilnext < 15) {
+                $scope.state=incomingState;
+              }
+        }
+      }, 1000);
+
       // end event function
 
       $scope.endEvent = function() {
@@ -173,19 +187,6 @@ app.service('UpdateService',['$http', '$interval', '$rootScope', function($http,
           $scope.state = incomingState;
         }
       };
-
-      $interval(function(){
-        if($scope.list[0]!=undefined){
-          $scope.untilnext = moment().twix($scope.list[0].start).length("minutes");}
-        else {
-          $scope.untilnext=61;
-        }
-        if ($scope.state.color == "green"){
-              if ($scope.untilnext < 15) {
-                $scope.state=incomingState;
-              }
-        }
-      }, 1000);
 
       // start event function
 
