@@ -127,7 +127,7 @@ app.service('UpdateService',['$http', '$interval', '$rootScope', function($http,
         UpdateService.calendarsUpdate();
       }]);
 
-    app.controller('MainCtrl', ['$scope', '$cookies', '$location', 'UpdateService', '$interval', '$http' function mainctrl($scope, $cookies, $location, UpdateService, $interval, $http) {
+    app.controller('MainCtrl', ['$scope', '$cookies', '$location', 'UpdateService', '$interval', '$http', function mainctrl($scope, $cookies, $location, UpdateService, $interval, $http) {
       $scope.device = null;
       $scope.untilnext = 0;
       $scope.state = {};
