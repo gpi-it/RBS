@@ -25,7 +25,7 @@
   <div class="{{state.color}}-light" id="list-head">
   <h3>Next events</h3>
   </div>
-  <ul>
+  <ul id="ev">
     <li ng-repeat="event in list">
       <p>{{event.start | date:'H:mm'}} to {{event.end | date:'H:mm'}} - <strong>{{event.summary}}</strong></p>
     </li>
