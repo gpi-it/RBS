@@ -98,6 +98,7 @@ h6      { font-size: 0.75em;    /* 0.75*16 = 12 */      }
 }
 
 button{
+  height: 120px;
   padding:12px;
   vertical-align: middle;
   width: 49%;

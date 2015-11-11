@@ -5,7 +5,7 @@
       <h1 class='' ng-if='state.color=="green"'>Room free</h1>
       <h1 class='' ng-if='state.color!="green"'>{{main.summary===undefined ? "Someone forgot the title" : main.summary | limitTo:25}}{{main.summary.length > 20 ? '...' : ''}}</h1>
       <div class='' ng-if='!main.allday&&state.color!="green"'>
-        <p>From {{main.start | date:'H:mm'}} to {{main.end | date:'H:mm'}}</p>
+        <p>From <strong>{{main.start | date:'H:mm'}}</strong> to <strong>{{main.end | date:'H:mm'}}</strong></p>
       </div>
       <div class='' ng-if='main.allday&&state.color!="green"'>
         <p>All day event</p>
@@ -16,8 +16,8 @@
     </div>
     <div class="" id="container-buttons">
       <button name="book-button" ng-if="state.quickBook" ng-disabled="state.quickBook" type="button">BOOK THE ROOM</button>
-      <button name="start-button" ng-if="!state.quickBook&&state.color!='green'" ng-disabled="state.startButton" type="button">START</button>
-      <button name="stop-button" ng-if="!state.quickBook&&state.color!='green'" ng-disabled="state.stopButton"  type="button">CANCEL</button>
+      <button name="start-button" ng-if="!state.quickBook&&state.color!='green'" ng-disabled="state.startButton" type="button" style="float:left;">START</button>
+      <button name="stop-button" ng-if="!state.quickBook&&state.color!='green'" ng-disabled="state.stopButton"  type="button" style="float:right;">CANCEL</button>
     </div>
   </div>
 </div>
