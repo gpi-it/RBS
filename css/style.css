@@ -75,7 +75,7 @@ h6      { font-size: 0.75em;    /* 0.75*16 = 12 */      }
 }
 
 #list-head{
-  padding:12px;
+  padding:18px;
   -webkit-transition: all 0.3s ease;
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
@@ -85,7 +85,7 @@ h6      { font-size: 0.75em;    /* 0.75*16 = 12 */      }
 
 #warper{
   position: relative;
-  padding: 12px;
+  padding: 18px;
   top: 50%;
   -ms-transform: translateY(-50%);
   -webkit-transform: translateY(-50%); /* Safari */
@@ -102,7 +102,7 @@ h6      { font-size: 0.75em;    /* 0.75*16 = 12 */      }
 .button-warper{
   -webkit-flex: 1;
   flex: 1;
-  margin: 12px;
+  margin: 6px;
 }
 
 button{
