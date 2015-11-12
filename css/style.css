@@ -168,7 +168,7 @@ input[type="text"].focus {
   outline: none;
 }
 
-submit{
+select{
   display: block;
   margin: 0;
   width: 100%;
@@ -187,8 +187,8 @@ submit{
   -moz-transition: border 0.3s;
 }
 
-submit:focus,
-submit.focus{
+select:focus,
+select.focus{
   border: solid 5px #969696;
   outline: none;
 }
