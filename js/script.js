@@ -332,8 +332,6 @@ app.controller("BookCtrl", ['$scope', '$http', '$location', 'UpdateService', fun
 
   var events = UpdateService.getEvents();
 
-  UpdateService.onEventsChange($scope, dothebarredroll);
-
   function dothebarredroll() {
 
     events = UpdateService.getEvents();
@@ -363,7 +361,8 @@ app.controller("BookCtrl", ['$scope', '$http', '$location', 'UpdateService', fun
       $scope.times = [15, 30, 45, 60];
     }
   }
-
+  dothebarredroll();
+  UpdateService.onEventsChange($scope, dothebarredroll);
 
   $scope.createEvent = function() {
     console.log("firing createEvent");
