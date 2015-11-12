@@ -332,9 +332,10 @@ app.controller("BookCtrl", ['$scope', '$http', '$location', 'UpdateService', fun
 
   var events = UpdateService.getEvents();
 
-  UpdateService.onEventsChange($scope, dothebarredroll());
+  UpdateService.onEventsChange($scope, dothebarredroll);
 
   function dothebarredroll() {
+
     events = UpdateService.getEvents();
     $scope.times = [];
     $scope.choose = undefined;
