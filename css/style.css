@@ -196,10 +196,10 @@ select.focus{
   outline: none;
 }
 
-ul { list-style-type: none; margin: 0px; padding-left: 18px;}
+ul { list-style-type: none; margin: 0px; padding-left: 18px; padding-right: 18px;}
 
 li{
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
 }
 
 li:last-of-type {
