@@ -196,5 +196,16 @@ select.focus{
   outline: none;
 }
 
-
 ul { list-style-type: none; margin: 0px; padding-left: 18px;}
+
+li{
+  border: 1px solid black;
+}
+
+li:first-of-type {
+    border-top: none;
+}
+
+li:last-of-type {
+    border-bottom: none;
+}
