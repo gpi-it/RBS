@@ -137,10 +137,35 @@ button:disabled{
 }
 
 #bookForm{
+  text-align: center;
   position: relative;
   padding: 12px;
   top: 50%;
   -ms-transform: translateY(-50%);
   -webkit-transform: translateY(-50%); /* Safari */
   transform: translateY(-50%);
+}
+
+input[type="text"] {
+  display: block;
+  margin: 0;
+  width: 100%;
+  font-family: sans-serif;
+  font-size: 18px;
+  appearance: none;
+  box-shadow: none;
+  border-radius: none;
+}
+input[type="text"]:focus {
+  outline: none;
+}
+
+.inBig input[type="text"] {
+  padding: 10px;
+  border: solid 5px #c9c9c9;
+  transition: border 0.3s;
+}
+.inBig input[type="text"]:focus,
+.inBig input[type="text"].focus {
+  border: solid 5px #969696;
 }
