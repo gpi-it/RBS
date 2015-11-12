@@ -14,7 +14,7 @@ moment.locale('en');
 
 //angular.js module initialization
 
-var app = angular.module('CalendarApp', ['ngRoute', 'ngTouch', 'ngCookies']);
+var app = angular.module('CalendarApp', ['ngRoute', 'ngTouch', 'ngCookies', 'ngAnimate']);
 
 //configuring routeProvider
 
