@@ -199,13 +199,13 @@ select.focus{
 
 
 @keyframes slideOutLeft {
-    to      { transform: translateX(-100%); }
+    to      { transform: opacity(0); }
 }
 
 @keyframes slideInRight {
-    from    { transform:translateX(100%); }
-    to      { transform: translateX(0); }
+    from    { transform: opacity(0); }
+    to      { transform: opacity(1); }
 }
 
-.ng-enter           { animation: slideInRight 0.5s both ease-in; }
-.ng-leave           { animation: slideOutLeft 0.5s both ease-in; }
+.ng-enter           { animation: slideInRight 0.3s both ease; z-index: 8888; }
+.ng-leave           { animation: slideOutLeft 0.3s both ease; z-index: 9999; }
