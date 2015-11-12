@@ -370,7 +370,7 @@ app.controller("BookCtrl", ['$scope', '$http', '$location', 'UpdateService', fun
     var now = moment().toISOString();
     var end = moment(now).add($scope.choose, 'minutes').toISOString();
     var event = {
-      'summary': $scope.summary + '[Confirmed]',
+      'summary': $scope.summary + ' [Confirmed]',
       'description': 'Quick event created from the room manager App',
       'start': {
         'dateTime': now,
