@@ -197,4 +197,4 @@ select.focus{
 }
 
 
-ul { list-style-type: none } li:before { content: "- "; font-size: 36px; }
+ul { list-style-type: none } li:before { content: "- ";}
