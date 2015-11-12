@@ -26,12 +26,15 @@ app.config(['$routeProvider',function($routeProvider) {
   }).when('/main', {
     templateUrl: 'tmp/main.html',
     controller: 'MainCtrl'
-  }).when('/side', {
-    templateUrl: 'tmp/side.html',
-    controller: 'SideCtrl'
+  }).when('/inside', {
+    templateUrl: 'tmp/inside.html',
+    controller: 'InsideCtrl'
   }).when('/admin', {
     templateUrl: 'tmp/admin.html',
     controller: 'AdminCtrl'
+  }).when('/book', {
+    templateUrl: 'tmp/book.html',
+    controller: 'BookCtrl'
   }).otherwise({
     redirectTo: '/'
   });
@@ -42,6 +45,23 @@ app.service('UpdateService',['$http', '$interval', '$rootScope', function($http,
       var calendarsData = {};
       var eventsData = {};
       var currentDevice = {};
+
+      //////logic to manage the quick book instant update of the main interface/////
+      /////////////////////////////////////////////////////////////////////////////
+
+      var newLocalEvent = null;
+
+      this.getNewLocalEvent = function () {
+        var ret = newLocalEvent;
+        newLocalEvent = null;
+        return ret;
+      };
+
+      this.setNewLocalEvent = function (obj) {
+        newLocalEvent = obj;
+      }
+
+      ////////////////////////////////////////////////////////////////////////////
 
       this.devicesUpdate = function() { $interval(function() {
         console.log("devicesUpdate firing");
@@ -131,7 +151,13 @@ app.service('UpdateService',['$http', '$interval', '$rootScope', function($http,
       $scope.device = null;
       $scope.untilnext = 0;
       $scope.state = {};
-      $scope.main = {};
+      var iniEvent = UpdateService.getNewLocalEvent();
+      if (iniEvent!=null){
+        $scope.main = iniEvent;
+        }
+      else {
+        $scope.main = {};
+      }
       $scope.list = [];
 
       var fullState = {
@@ -198,6 +224,10 @@ app.service('UpdateService',['$http', '$interval', '$rootScope', function($http,
         });
         $scope.state = busyState;
       };
+
+      $scope.book = function () {
+        $location.path('/book');
+      }
 
       //events handler
       UpdateService.onDeviceChange($scope, function() {
@@ -294,10 +324,67 @@ app.controller("SetCtrl", ['$scope', '$cookies', '$location', 'UpdateService', '
 
 }]);
 
-app.controller("SideCtrl", ['$scope', '$cookies', '$location', 'UpdateService', function sidectrl($scope, $cookies, $location, UpdateService) {
-  $scope.message = "working";
+app.controller("BookCtrl", ['$scope', '$http', '$location', 'UpdateService', function bookctrl($scope, $http, $location, UpdateService) {
+  $scope.eventName = "";
+
+  var events = UpdateService.getEvents();
+  $scope.times = [];
+  $scope.choose = undefined;
+  for (var i = 0; i < events.length; i++) {
+    var range = moment(events[i].start).twix(events[i].end);
+    if (!range.isCurrent()) {
+      var until = moment().twix(events[i].start).length("minutes");
+      if (until > 15) {
+        $scope.times[0] = 15;
+      }
+      if (until > 30) {
+        $scope.times[1] = 30;
+      }
+      if (until > 45) {
+        $scope.times[2] = 45;
+      }
+      if (until > 60) {
+        $scope.times[3] = 60;
+      }
+      return;
+    }
+  }
+  if (events.length == 0) {
+    $scope.times = [15, 30, 45, 60];
+  }
+
+  $scope.createEvent = function() {
+    var now = moment().toISOString();
+    var end = moment(now).add($scope.choose, 'minutes').toISOString();
+    var event = {
+      'summary': $scope.summary + '[Confirmed]',
+      'description': 'Quick event created from the room manager App',
+      'start': {
+        'dateTime': now,
+        'timeZone': 'Europe/Amsterdam'
+      },
+      'end': {
+        'dateTime': end,
+        'timeZone': 'Europe/Amsterdam'
+      }
+    };
+    $http.post('php/setevent.php', event).success(function() {
+      console.log('boia deh');
+      UpdateService.setNewLocalEvent(event);
+      $location.path("/main");
+    });
+  };
+
+  $scope.goback = function () {
+    $location.path("/main");
+  };
+
 }]);
 
 app.controller("AdminCtrl", ['$scope', '$cookies', '$location', 'UpdateService', function adminctrl($scope, $cookies, $location, UpdateService) {
+  $scope.message = "working";
+}]);
+
+app.controller("InsideCtrl", ['$scope', '$cookies', '$location', 'UpdateService', function insidectrl($scope, $cookies, $location, UpdateService) {
   $scope.message = "working";
 }]);

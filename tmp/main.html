@@ -15,7 +15,7 @@
       </div>
     </div>
     <div class="" id="container-buttons">
-      <button name="book-button" ng-if="!state.quickBook" ng-disabled="state.quickBook" type="button">BOOK THE ROOM</button>
+      <button name="book-button" ng-if="!state.quickBook" ng-disabled="state.quickBook" type="button" ng-click="book()">BOOK THE ROOM</button>
       <div ng-if="state.color!='green'" class="button-warper">
       <button name="start-button" ng-disabled="state.startButton" type="button" ng-click="startEvent()">START</button>
       </div>
