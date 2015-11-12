@@ -334,6 +334,7 @@ app.controller("BookCtrl", ['$scope', '$http', '$location', 'UpdateService', fun
   $scope.times = [];
   $scope.choose = undefined;
   for (var i = 0; i < events.length; i++) {
+    console.log("about to firing createEvent");
     var range = moment(events[i].start).twix(events[i].end);
     if (!range.isCurrent()) {
       var until = moment().twix(events[i].start).length("minutes");
@@ -351,7 +352,7 @@ app.controller("BookCtrl", ['$scope', '$http', '$location', 'UpdateService', fun
       }
       return;
     }
-  }console.log("about to firing createEvent");
+  }
   if (events.length == 0) {
     $scope.times = [15, 30, 45, 60];
   }
