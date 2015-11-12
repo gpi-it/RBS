@@ -77,7 +77,10 @@ h6      { font-size: 0.75em;     }
     -o-transition: all 0.3s ease;
     -ms-transition: all 0.3s ease;
     transition: all 0.3s ease;
-    list-style: none;
+}
+
+#list ul {
+  list-style: none;
 }
 
 #list-head{

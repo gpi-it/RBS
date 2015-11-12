@@ -358,6 +358,7 @@ app.controller("BookCtrl", ['$scope', '$http', '$location', 'UpdateService', fun
   }
 
   $scope.createEvent = function() {
+    console.log("firing createEvent");
     var now = moment().toISOString();
     var end = moment(now).add($scope.choose, 'minutes').toISOString();
     var event = {
