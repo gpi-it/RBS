@@ -94,11 +94,16 @@ h6      { font-size: 0.75em;     }
   transform: translateY(-50%);
 }
 
-#container-buttons{
+#container-buttons, #container-buttons-inside{
   text-align: center;
   margin:auto;
   display: -webkit-flex;
   display: flex;
+}
+
+#container-buttons-inside{
+  height: 100%;
+  width: 100%;
 }
 
 .button-warper{
