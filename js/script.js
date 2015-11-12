@@ -378,7 +378,8 @@ app.controller("BookCtrl", ['$scope', '$http', '$location', 'UpdateService', fun
       'end': {
         'dateTime': end,
         'timeZone': 'Europe/Amsterdam'
-      }
+      },
+      'current': true
     };
     $http.post('php/setevent.php', event).success(function() {
       console.log('boia deh');
