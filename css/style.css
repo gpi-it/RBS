@@ -79,10 +79,6 @@ h6      { font-size: 0.75em;     }
     transition: all 0.3s ease;
 }
 
-#list ul {
-  list-style: none;
-}
-
 #list-head{
   padding:18px;
   -webkit-transition: all 0.3s ease;
