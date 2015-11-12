@@ -351,11 +351,11 @@ app.controller("BookCtrl", ['$scope', '$http', '$location', 'UpdateService', fun
       }
       return;
     }
-  }
+  }console.log("about to firing createEvent");
   if (events.length == 0) {
     $scope.times = [15, 30, 45, 60];
   }
-console.log("about to firing createEvent");
+
   $scope.createEvent = function() {
     console.log("firing createEvent");
     var now = moment().toISOString();
