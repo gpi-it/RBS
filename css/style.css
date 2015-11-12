@@ -78,7 +78,8 @@ h6      { font-size: 0.75em;     }
 }
 
 #list-head{
-  padding:18px;
+  padding-left: 18px;
+  padding-right: 18px;
   -webkit-transition: all 0.3s ease;
     -moz-transition: all 0.3s ease;
     -ms-transition: all 0.3s ease;
