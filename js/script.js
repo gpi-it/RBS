@@ -10,7 +10,9 @@ document.body.addEventListener('touchmove',function(event){
 });
 
 //moment.js initialization
-
+function createEvent(){
+  console.log("HELLO");
+}
 moment.locale('en');
 
 //angular.js module initialization
