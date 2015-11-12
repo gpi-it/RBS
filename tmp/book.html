@@ -1,11 +1,11 @@
 <div class="green box" id="bookBox">
   <form name="quickBookForm" id="bookForm">
     <label>Event Name</label>
-    <input name="evSummary" ng-model="summary" required type="text" class="inBig"/>
+    <input name="evSummary" ng-model="summary" required type="text"/>
     <label>Duration</label>
     <select class="scroll" ng-model="choose" required>
       <option ng-repeat="time in times" value="{{time}}">{{time}} minutes</option>
     </select>
-    <button name="go" ng-click="createEvent()" ng-disabled="quickBookForm.$invalid" type="button">Book the room</button>
+    <button name="go" ng-click="createEvent()" ng-disabled="quickBookForm.$invalid" type="button">BOOK THE ROOM</button>
   </form>
 </div>
