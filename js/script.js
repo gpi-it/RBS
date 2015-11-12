@@ -217,6 +217,7 @@ app.service('UpdateService',['$http', '$interval', '$rootScope', function($http,
         var iniEvent = UpdateService.getNewLocalEvent();
         if (iniEvent!=null){
           $scope.main = iniEvent;
+          $scope.state = busyState;
           }
         else {
           $scope.main = tempCurr;
