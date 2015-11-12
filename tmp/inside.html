@@ -1,5 +1,8 @@
 <div class="{{state.color}}" id="container-buttons-inside">
   <div class="warper" id="warper-inside">
+    <h2 ng-if="state.color=='green'">
+      Room free
+    </h2>
     <div ng-if="state.color!='green'" class="button-warper">
     <button name="start-button" ng-disabled="state.startButton" type="button" ng-click="startEvent()">START</button>
     </div>
