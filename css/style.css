@@ -154,8 +154,8 @@ input[type="text"] {
   -moz-appearance:    none;
   box-shadow: none;
   border-radius: none;
-  -moz-border-radius: none;
-  -webkit-border-radius: none;
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
   padding: 10px;
   border: solid 5px #c9c9c9;
   transition: border 0.3s;
@@ -180,8 +180,8 @@ select{
   -moz-appearance:    none;
   box-shadow: none;
   border-radius: none;
-  -moz-border-radius: none;
-  -webkit-border-radius: none;
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
   padding: 10px;
   border: solid 5px #c9c9c9;
   transition: border 0.3s;
