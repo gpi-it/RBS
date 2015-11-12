@@ -1,4 +1,8 @@
-<?php 
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+require_once 'auth.php';
+
 require_once 'devices.php';
 
 function in_array_r($needle, $haystack, $strict = false) {
@@ -12,7 +16,14 @@ function in_array_r($needle, $haystack, $strict = false) {
 }
 
 $pst = json_decode(file_get_contents("php://input"));
-$jsonString = file_get_contents('/var/www/html/js/data.json');
+$jsonString = file_get_contents('../js/data.json');
+if($jsonString === false) {
+    echo "Error";
+} else {
+    echo "All good, $jsonString";
+    var_dump(is_writable('../js/data.json'));
+    var_dump(file_exists('../js/data.json'));
+}
 $data = json_decode($jsonString);
 $cookie_name = "rmDevice";
 setcookie($cookie_name, $pst->deviceid, 2147483647, "/");
@@ -21,6 +32,11 @@ $new= array("deviceid"=>$pst->deviceid,"device"=>$currDevice,"calendar"=>$pst->c
 if(!in_array_r($pst->deviceid,$data)){
 array_push($data,$new);
 $jsonData = json_encode($data);
-file_put_contents('/var/www/html/js/data.json', $jsonData);
+$var = file_put_contents('../js/data.json', $jsonData);
+if($var === false) {
+    echo "Error";
+} else {
+    echo "All good, $var";
+}
 }
 ?>

@@ -1,0 +1,12 @@
+<div class="green box" id="bookBox">
+  <form name="quickBookForm" id="bookForm">
+    <label><h2>Event Name</h2></label>
+    <input name="evSummary" ng-model="summary" required type="text"/>
+    <label><h2>Duration</h2></label>
+    <select class="scroll" ng-model="choose" required>
+      <option ng-repeat="time in times" value="{{time}}">{{time}} minutes</option>
+    </select>
+    <br/>
+    <button name="go" ng-click="createEvent()" ng-disabled="quickBookForm.$invalid" type="button">BOOK THE ROOM</button>
+  </form>
+</div>

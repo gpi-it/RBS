@@ -12,21 +12,19 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.11.4/angular-material.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
+    <link rel="apple-touch-icon" sizes="57x57" href="/icons/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/icons/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/icons/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/icons/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/icons/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/icons/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/icons/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/icons/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/icons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/icons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
     <link href="css/style.css" rel="stylesheet" type="text/css">
     </script>
     <script src="js/moment.js">
@@ -35,60 +33,14 @@
     </script>
 </head>
 
-<body ng-app="CalendarApp" ng-controller="MainCtrl">
-    <div ng-if='currDevice[0].auth' id='container' layout="column" layout-fill>
-        <div layout="column" flex='65'>
-            <md-content id='main' class='{{color}}' layout-fill>
-                <h1 ng-if='state=="noevent"' class='md-display-4'>Room free</h1>
-                <h1 ng-if='state!="noevent"' class='md-display-4'>{{currEvent.summary===undefined ? "Someone forgot the title" : currEvent.summary | limitTo:20}}{{currEvent.summary.length > 20 ? '...' : ''}}</h1>
-                <div ng-if='!currEvent.allday&&state!="noevent"' class='subhead'>
-                    <p>From {{currEvent.start | date:'H:mm'}} to {{currEvent.end | date:'H:mm'}}</p>
-                </div>
-                <div ng-if='currEvent.allday&&state!="noevent"' class='subhead'>
-                    <p>All day event</p>
-                </div>
-                <div ng-if='state!="noevent"' class='subhead'>
-                    <p>Created by {{currEvent.creator.length > 24 ? 'GreenRobot' : currEvent.creator}}</p>
-                </div>
-                <div layout='row'>
-                    <md-button ng-if='state!="noevent"' class='md-raised' ng-disabled='state=="confirmed"' ng-click='state=="confirmed" || startEvent()' flex>
-                        <h1 class='md-display-2'>Start Event</h1></md-button>
-                    <md-button ng-if='state!="noevent"' class='md-raised' ng-disabled='state=="confirmed"' ng-click='state=="confirmed" || endEvent()' flex>
-                        <h1 class='md-display-2'>Cancel Event</h1></md-button>
-                    <md-button ng-if='state=="noevent"&&untilnext > 15' class='md-raised' ng-click="showQuickBook()" flex>
-                        <h1 class='md-display-2'>Quick book</h1></md-button>
-                </div>
-            </md-content>
-        </div>
-        <div layout="column" flex='25'>
-            <md-toolbar class='{{color}}-light'>
-                <div class="md-toolbar-tools">
-                    <span>Upcoming events</span>
-                    <span flex></span>
-                    <md-button>
-                        Admin
-                    </md-button>
-                </div>
-            </md-toolbar>
-            <md-content class='md-backgound'>
-                <md-list class='scroll'>
-                    <md-list-item ng-repeat='event in eventslist'>
-                        <p>{{event.start | date:'H:mm'}} to {{event.end | date:'H:mm'}} - <strong>{{event.summary}}</strong></p>
-                        <md-divider></md-divider>
-                    </md-list-item>
-                </md-list>
-
-        </div>
-    </div>
-
-
+<body ng-app="CalendarApp">
+  <div ng-view></div>
     <!-- Angular Material Dependencies -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-animate.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-aria.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-touch.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-cookies.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.11.4/angular-material.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-route.js"></script>
     <script src="js/script.js"></script>
     </script>
 </body>

@@ -5,670 +5,400 @@
         e.preventDefault();
 });*/
 
+document.body.addEventListener('touchmove',function(event){
+  event.preventDefault();
+});
 
 //moment.js initialization
-
 moment.locale('en');
 
 //angular.js module initialization
 
-var app = angular.module('CalendarApp', ['ngMaterial', 'ngTouch', 'ngCookies']);
+var app = angular.module('CalendarApp', ['ngRoute', 'ngTouch', 'ngCookies', 'ngAnimate']);
 
-//configuring angular material UI colors themes
+//configuring routeProvider
 
-app.config(function ($mdThemingProvider) {
-    $mdThemingProvider.theme('default')
-        .primaryPalette('blue')
-        .accentPalette('amber')
-        .warnPalette('red');
-});
+app.config(['$routeProvider',function($routeProvider) {
+  $routeProvider.when('/', {
+    templateUrl: 'tmp/bootstrap.html',
+    controller: 'SetCtrl'
+  }).when('/main', {
+    templateUrl: 'tmp/main.html',
+    controller: 'MainCtrl'
+  }).when('/inside', {
+    templateUrl: 'tmp/inside.html',
+    controller: 'InsideCtrl'
+  }).when('/admin', {
+    templateUrl: 'tmp/admin.html',
+    controller: 'AdminCtrl'
+  }).when('/book', {
+    templateUrl: 'tmp/book.html',
+    controller: 'BookCtrl'
+  }).otherwise({
+    redirectTo: '/'
+  });
+}]);
 
+app.service('UpdateService',['$http', '$interval', '$rootScope', function($http, $interval, $rootScope) {
+      var devicesData = {};
+      var calendarsData = {};
+      var eventsData = {};
+      var currentDevice = {};
 
-/*
-app.directive("ngMobileClick", [function () {
-    return function (scope, elem, attrs) {
-        elem.bind("touchstart click", function (e) {
-            e.preventDefault();
-            e.stopPropagation();
+      //////logic to manage the quick book instant update of the main interface/////
+      /////////////////////////////////////////////////////////////////////////////
 
-            scope.$apply(attrs["ngMobileClick"]);
-        });
-    }
-}])
-*/
+      var newLocalEvent = null;
 
-app.controller('MainCtrl', ['$scope', '$cookies', '$interval', '$http', '$mdDialog', '$cacheFactory', '$timeout', function mainctrl($scope, $cookies, $interval, $http, $mdDialog, $cacheFactory, $timeout) {
-    $scope.device = $cookies.get('rmDevice');
-    $scope.eventslist = [];
-    $scope.go=true;
-    var timer = undefined;
+      this.getNewLocalEvent = function () {
+        var ret = newLocalEvent;
+        newLocalEvent = null;
+        return ret;
+      };
 
-    function showDialog($event) {
-        var parentEl = angular.element(document.body);
-        $mdDialog.show({
-            parent: parentEl,
-            targetEvent: $event,
-            template: '<md-dialog aria-label="Login dialog">' +
-                '  <md-dialog-content style="font-size:32px">' +
-                '    <md-input-container>' +
-                ' <label>Admin password</label>' +
-                '<input name="pwd" type="password" ng-model="pwd" />' +
-                '</md-input-container>' +
-                '  </md-dialog-content>' +
-                '  <div class="md-actions">' +
-                '    <md-button ng-click="authDialog()" class="md-primary">' +
-                '      Go!' +
-                '    </md-button>' +
-                '  </div>' +
-                '</md-dialog>',
-            controller: DialogController
-        });
+      this.setNewLocalEvent = function (obj) {
+        newLocalEvent = obj;
+      }
 
-        function DialogController($scope, $mdDialog) {
-            $scope.pwd = '';
-            $scope.authDialog = function () {
-                console.log('verifing pwd!');
-                $http.post('php/validate.php', {
-                    'pwd': $scope.pwd
-                }).success(function (data) {
-                    if (data.res) {
-                        console.log('confirm pwd!');
-                        $mdDialog.hide();
-                        //show set up dialog
-                        showSetup();
-                    } else {
-                        console.log('wrong pwd!');
-                    }
-                });
+      ////////////////////////////////////////////////////////////////////////////
 
-            };
-            $scope.closeDialog = function () {
-                $mdDialog.hide();
-            };
-        }
-    }
-
-    function showSetup($event) {
-        var parentEl = angular.element(document.body);
-        $mdDialog.show({
-            parent: parentEl,
-            targetEvent: $event,
-            template: '<md-dialog aria-label="Setup dialog">' +
-                ' <md-dialog-content style="font-size:32px">' +
-                '<form name="setupForm">' +
-                '   <md-input-container>' +
-                '     <label>Device Name</label>' +
-                '     <input name="devId" type="text" ng-model="deviceid" required />' +
-                '   </md-input-container>' +
-                '<md-input-container class="scroll">' +
-                '<label>Calendar</label>' +
-                '<md-select ng-model="cal" class="scroll" required>' +
-                '<md-option class="scroll" ng-repeat="calendar in calendars" value="{{calendar.id}}">{{calendar.summary}}</md-option>' +
-                '</md-select>' +
-                '</md-input-container>' +
-                '</form>' +
-                ' </md-dialog-content>' +
-                ' <div class="md-actions">' +
-                '   <md-button ng-click="setDialog()" ng-disabled="setupForm.$invalid" class="md-primary">' +
-                '     Go!' +
-                '   </md-button>' +
-                ' </div>' +
-                '</md-dialog>',
-            controller: SetupController
-        });
-
-        function SetupController($scope, $mdDialog) {
-            $http.post('php/listCalendar.php').success(function (data) {
-                $scope.calendars = data;
-            });
-
-            $scope.setDialog = function () {
-                var inp = {
-                    "deviceid": $scope.deviceid,
-                    "calendar": $scope.cal,
-                    "maindevice" : true
-                };
-                $http.post('php/setcookies.php', inp).success(function (data) {
-                    $mdDialog.hide();
-                    update();
-                });
-
-            };
-            $scope.closeDialog = function () {
-                $mdDialog.hide();
-            };
-        }
-    }
-
-    $scope.$watch($scope.device, function () {
-        if ($scope.device == undefined || $scope.device == null || $scope.device == '') {
-            showDialog();
-        }
-    });
-
-    var update = function () {
-        var tempEv = [];
-        var tempcurr = '';
-        var tempConf = 'noevent';
-        var tempColor = '';
-        var cache = $cacheFactory.get('$http');
-        cache.remove('js/data.json');
+      this.devicesUpdate = function() { $interval(function() {
+        console.log("devicesUpdate firing");
         $http.get('js/data.json', {
-            cache: false,
-            timeout: 3000
-        }).success(function (data) {
-            $scope.device = $cookies.get('rmDevice');
-            $scope.currDevice = data.filter(function (some) {
-                return some.deviceid == $scope.device
-            });
-            console.log($scope.device);
-            console.log(data);
-            console.log($scope.currDevice);
+          cache: false,
+          timeout: 3000
+        }).success(function(data) {
+          if (angular.toJson(devicesData) != angular.toJson(data)) {
+            console.log("devices old data"+angular.toJson(devicesData));
+            console.log("devices new data"+angular.toJson(data));
+            devicesData = data;
+            $rootScope.$emit('devices-change-event');
+          }
         });
+      }, 1000);};
 
-        $http.post('php/listCalendar.php');
-        if (!(typeof ($scope.currDevice) == 'undefined')) {
-            if (!(typeof ($scope.currDevice[0]) == 'undefined')) {
-                console.log('currDevice 0 valido');
-                if ($scope.currDevice[0].auth) {
-                    $http.get('php/list.php').success(function (events) {
-                        for (var i = 0; i < events.length; i++) {
-                            var range = moment(events[i].start).twix(events[i].end);
-                            if (range.isCurrent()) {
-                                tempcurr = events[i];
-                                var checkexp = new RegExp("\\[Confirmed\\]");
-                                if (checkexp.test(events[i].summary)) {
-                                    tempConf = 'confirmed';
-                                    tempColor = 'red';
-                                } else {
-                                    var boia = moment(events[i].start);
-                                    boia = boia.add(20, 'm');
-                                    var boiadeh = moment(events[i].start);
-                                    boiadeh = boiadeh.add(30, 'm');
-                                    var now = moment();
-                                    if ((now >= boia) && (now <= boiadeh)) {
-                                        tempConf = 'out';
-                                        tempColor = 'blue';
-                                    } else if (now >= boiadeh) {
-                                        //autoEndEvent();
-                                        tempConf = 'in';
-                                        tempColor = 'blue';
-                                    } else {
-                                        tempConf = 'in';
-                                        tempColor = 'blue';
-                                    }
-                                }
+      this.calendarsUpdate = function() {
+        console.log("calendarsUpdate firing");
+        $http.get('php/listCalendar.php').success(function(data) {
+          if (angular.toJson(calendarsData) != angular.toJson(data)) {
+            console.log("calendars old data"+angular.toJson(calendarsData));
+            console.log("calendars new data"+angular.toJson(data));
+            calendarsData = data;
+            $rootScope.$emit('calendars-change-event');
+          }
+        });
+      };
 
-                            } else {
-                                tempEv.push(events[i]);
+      this.eventsUpdate = function() { $interval(function() {
+        console.log("eventsUpdate firing");
+        $http.get('php/list.php').success(function(data) {
+          if (angular.toJson(eventsData) != angular.toJson(data)) {
+            console.log("events old data"+angular.toJson(eventsData));
+            console.log("events new data"+angular.toJson(data));
+            eventsData = data;
+            $rootScope.$emit('events-change-event');
+          }
+        });
+      }, 1000);};
 
-                            }
-                        }
-                        if (tempConf == 'noevent') {
-                            tempColor = 'green';
-                        }
-                        if (tempEv.length > 0) {
-                            $scope.untilnext = moment().twix(tempEv[0].start).length("minutes");
-                        }
-                        else{
-                            $scope.untilnext = 61;
-                        }
-                        console.log(tempEv);
-                        if($scope.go){
-                        $scope.color = tempColor;
-                        $scope.eventslist = tempEv;
-                        $scope.currEvent = tempcurr;
-                        $scope.state = tempConf;
-                        }
-                    });
-                }
+      this.onDeviceChange = function(scope, callback) {
+        var handler = $rootScope.$on('devices-change-event', callback);
+        scope.$on('$destroy', handler);
+      };
 
+      this.onCalendarsChange = function(scope, callback) {
+        var handler = $rootScope.$on('calendars-change-event', callback);
+        scope.$on('$destroy', handler);
+      };
+      this.onEventsChange = function(scope, callback) {
+        var handler = $rootScope.$on('events-change-event', callback);
+        scope.$on('$destroy', handler);
+      };
+
+      this.getDevices = function() {
+        return devicesData;
+      };
+
+      this.getCurrentDevice = function(cookie) {
+        if (cookie != null) {
+          currentDevice = devicesData.filter(function(some) {
+              return some.deviceid == cookie ;
+            });
+            return currentDevice;
+          } else {
+            return null;
+          }
+        };
+
+        this.getCalendars = function() {
+          return calendarsData;
+        };
+
+        this.getEvents = function() {
+          return eventsData;
+        };
+
+      }]);
+
+      app.run(['UpdateService', function(UpdateService){
+        UpdateService.devicesUpdate();
+        UpdateService.eventsUpdate();
+        UpdateService.calendarsUpdate();
+      }]);
+
+    app.controller('MainCtrl', ['$scope', '$cookies', '$location', 'UpdateService', '$interval', '$http', function mainctrl($scope, $cookies, $location, UpdateService, $interval, $http) {
+      $scope.device = null;
+      $scope.untilnext = 0;
+      $scope.state = {};
+      $scope.main = {};
+      $scope.list = [];
+
+      var fullState = {
+        "color": "blue",
+        "startButton": false,
+        "stopButton": false,
+        "quickBook": true
+      };
+      var freeState = {
+        "color": "green",
+        "startButton": true,
+        "stopButton": true,
+        "quickBook": false
+      };
+      var incomingState = {
+        "color": "green",
+        "startButton": true,
+        "stopButton": true,
+        "quickBook": true
+      };
+      var busyState = {
+        "color": "red",
+        "startButton": true,
+        "stopButton": true,
+        "quickBook": true
+      };
+
+
+      function update() {
+        var events = UpdateService.getEvents();
+        var tempList = [];
+        var tempCurr = null;
+        for (var i = 0; i < events.length; i++) {
+          if (events[i].current) {
+            tempCurr = events[i];
+            var checkexp = new RegExp("\\[Confirmed\\]");
+            if (checkexp.test(events[i].summary)) {
+              $scope.state = busyState;
+            } else {
+              var boia = moment(events[i].start);
+              boia = boia.add(20, 'm');
+              var boiadeh = moment(events[i].start);
+              boiadeh = boiadeh.add(30, 'm');
+              var now = moment();
+              if ((now >= boia) && (now <= boiadeh)) {
+
+                $scope.state = fullState;
+
+              } else if (now >= boiadeh) {
+                //autoEndEvent();
+
+                $scope.state = fullState;
+
+              } else {
+
+                $scope.state = fullState;
+
+              }
             }
+          } else {
+            tempList.push(events[i]);
+          }
         }
-    };
+        var iniEvent = UpdateService.getNewLocalEvent();
+        if (iniEvent!=null){
+          $scope.main = iniEvent;
+          $scope.state = busyState;
+          }
+        else {
+          $scope.main = tempCurr;
+        }
+        $scope.list = tempList;
+        if ($scope.main==null) {
+            $scope.state = freeState;
+          }
+          console.log(angular.toJson($scope.state));
+          console.log(angular.toJson($scope.main));
+          console.log(angular.toJson($scope.list));
+        };
 
-    // end event function
+        update();
 
-    $scope.endEvent = function () {
+      $interval(function(){
+        if($scope.list[0]!=undefined){
+          $scope.untilnext = moment().twix($scope.list[0].start).length("minutes");}
+        else {
+          $scope.untilnext=61;
+        }
+        if ($scope.state.color == "green"){
+              if ($scope.untilnext < 15) {
+                $scope.state=incomingState;
+              }
+        }
+      }, 1000);
+
+      // end event function
+
+      $scope.endEvent = function() {
         $http.post('php/endevent.php', {
-            'eventId': $scope.currEvent.id
-        }).success(function (data) {
-            console.log('end event done!' + data);
+          'eventId': $scope.main.id
+        }).success(function(data) {
+          console.log('end event done!' + data);
         });
-        $scope.go=false;
-        $timeout(function () {$scope.go=true;
-        }, 3000);
-        $scope.state = 'noevent';
-        $scope.color = 'green';
-    };
-
-    // start event function
-
-    $scope.startEvent = function () {
-        $http.post('php/startevent.php', {
-            'eventId': $scope.currEvent.id
-        }).success(function (data) {
-            console.log('confirm event done!' + data);
-        });
-        $scope.go=false;
-        $timeout(function () {$scope.go=true;
-        }, 3000);
-        $scope.state = 'confirmed';
-        $scope.color = 'red';
-    };
-
-    //repeat the update fuction every 2 second to update the data drom google calendar and the json database
-
-    timer = $interval(update, 1500);
-
-    //register in the scope the showquickbook fuction to show the dialog
-
-    $scope.showQuickBook = function ($event) {
-        var parentEl = angular.element(document.body);
-        $mdDialog.show({
-            parent: parentEl,
-            targetEvent: $event,
-            clickOutsideToClose: true,
-            template: '<md-dialog aria-label="Quick book dialog">' +
-                ' <md-dialog-content style="font-size:32px">' +
-                '<form name="quickBookForm">' +
-                '   <md-input-container>' +
-                '     <label>Event Name</label>' +
-                '     <input name="evSummary" type="text" ng-model="summary" required />' +
-                '   </md-input-container>' +
-                '<md-input-container class="scroll" >' +
-                '<label>Duration</label>' +
-                '<md-select ng-model="choose" class="scroll" required>' +
-                '<md-option ng-repeat="time in times" value="{{time}}">{{time}} minutes</md-option>' +
-                '</md-select>' +
-                '</md-input-container>' +
-                '</form>' +
-                ' </md-dialog-content>' +
-                ' <div class="md-actions">' +
-                '   <md-button ng-click="createDialog()" class="md-primary" ng-disabled="quickBookForm.$invalid" style="font-size:24px;padding:10px;">' +
-                '     Book' +
-                '   </md-button>' +
-                ' </div>' +
-                '</md-dialog>',
-            controller: QuickBookController
-        });
-
-        function QuickBookController($scope, $mdDialog) {
-            $http.get('php/list.php').success(function (events) {
-                $scope.times = [];
-                $scope.choose = undefined;
-                console.log(events);
-                for (var i = 0; i < events.length; i++) {
-                    var range = moment(events[i].start).twix(events[i].end);
-                    if (!range.isCurrent()) {
-                        var until = moment().twix(events[i].start).length("minutes");
-                        if (until > 15) {
-                            $scope.times[0] = 15;
-                        }
-                        if (until > 30) {
-                            $scope.times[1] = 30;
-                        }
-                        if (until > 45) {
-                            $scope.times[2] = 45;
-                        }
-                        if (until > 60) {
-                            $scope.times[3] = 60;
-                        }
-                        return;
-                    }
-                }
-                if (events.length == 0) {
-                    $scope.times = [15, 30, 45, 60];
-                }
-            });
-            $scope.createDialog = function () {
-                var now = moment().toISOString();
-                var end = moment(now).add($scope.choose, 'minutes').toISOString();
-                var event = {
-                    'summary': $scope.summary+'[Confirmed]',
-                    'description': 'Quick event created from the room manager App',
-                    'start': {
-                        'dateTime': now,
-                        'timeZone': 'Europe/Amsterdam'
-                    },
-                    'end': {
-                        'dateTime': end,
-                        'timeZone': 'Europe/Amsterdam'
-                    }
-                };
-                $http.post('php/setevent.php', event).success(function() {console.log('boia deh'); $mdDialog.hide();});
-            };
-
-            $scope.closeDialog = function () {
-                $mdDialog.hide();
-            };
+        if ($scope.untilnext > 15) {
+          $scope.state = freeState;
+        } else {
+          $scope.state = incomingState;
         }
+      };
+
+      // start event function
+
+      $scope.startEvent = function() {
+        $http.post('php/startevent.php', {
+          'eventId': $scope.main.id
+        }).success(function(data) {
+          console.log('confirm event done!' + data);
+        });
+        $scope.state = busyState;
+      };
+
+      $scope.book = function () {
+        $location.path('/book');
+      }
+
+      //events handler
+      UpdateService.onDeviceChange($scope, function() {
+        var device = $cookies.get('rmDevice');
+        $scope.device = UpdateService.getCurrentDevice(device);
+        if ($scope.device == null) {
+          $location.path('/');
+        }
+      });
+
+      UpdateService.onEventsChange($scope, update);
+
+    }]);
+
+app.controller("SetCtrl", ['$scope', '$cookies', '$location', 'UpdateService', '$http', function setctrl($scope, $cookies, $location, UpdateService, $http) {
+
+  $scope.device = "";
+  $scope.calendars = [];
+  $scope.selected = {};
+
+  UpdateService.onDeviceChange($scope, function() {
+    console.log("event onDeviceChange detected!");
+    var device = $cookies.get('rmDevice');
+    console.log(device);
+    $scope.device = UpdateService.getCurrentDevice(device);
+    console.log($scope.device);
+    if ($scope.device == null) {
+      $location.path('/');
     }
+    else {
+      $location.path("/main");
+    }
+  });
 
+  UpdateService.onCalendarsChange($scope, function(){
+    $scope.calendars=UpdateService.getCalendars();
+    $scope.selected = $scope.calendars[0].id;
+    console.log($scope.calendars);
+  });
 
+  $scope.startup = function(){
+    var inp = {
+                "deviceid": $scope.deviceid,
+                "calendar": $scope.selected,
+                "maindevice" : true
+              };
+    $http.post('php/setcookies.php', inp).success(function (data) {
+      $location.path("/main");
+    });
+  };
 
 }]);
 
-/////////////////////////////////////////////////////////////////////////////////////////////////
-//declaration for the app of the internal iphone button
-/////////////////////////////////////////////////////////////////////////////////////////////////
+app.controller("BookCtrl", ['$scope', '$http', '$location', 'UpdateService', function bookctrl($scope, $http, $location, UpdateService) {
+  $scope.eventName = "";
 
-var btn = angular.module('BtnApp', ['ngMaterial', 'ngTouch', 'ngCookies']);
+  var events = UpdateService.getEvents();
 
-btn.directive("ngMobileClick", [function () {
-    return function (scope, elem, attrs) {
-        elem.bind("touchstart click", function (e) {
-            e.preventDefault();
-            e.stopPropagation();
+  function dothebarredroll() {
 
-            scope.$apply(attrs["ngMobileClick"]);
-        });
-    }
-}])
-
-btn.controller('BtnCtrl', ['$scope', '$cookies', '$interval', '$http', '$mdDialog', '$cacheFactory', '$timeout', function btnctrl($scope, $cookies, $interval, $http, $mdDialog, $cacheFactory, $timeout) {
-    $scope.device = $cookies.get('rmDevice');
-    $scope.eventslist = [];
-    var timer = undefined;
-
-    function showDialog($event) {
-        var parentEl = angular.element(document.body);
-        $mdDialog.show({
-            parent: parentEl,
-            targetEvent: $event,
-            template: '<md-dialog aria-label="Login dialog">' +
-                '  <md-dialog-content style="font-size:32px">' +
-                '    <md-input-container>' +
-                ' <label>Admin password</label>' +
-                '<input name="pwd" type="password" ng-model="pwd" />' +
-                '</md-input-container>' +
-                '  </md-dialog-content>' +
-                '  <div class="md-actions">' +
-                '    <md-button ng-click="authDialog()" class="md-primary">' +
-                '      Go!' +
-                '    </md-button>' +
-                '  </div>' +
-                '</md-dialog>',
-            controller: DialogController
-        });
-
-        function DialogController($scope, $mdDialog) {
-            $scope.pwd = '';
-            $scope.authDialog = function () {
-                console.log('verifing pwd!');
-                $http.post('php/validate.php', {
-                    'pwd': $scope.pwd
-                }).success(function (data) {
-                    if (data.res) {
-                        console.log('confirm pwd!');
-                        $mdDialog.hide();
-                        //show set up dialog
-                        showSetup();
-                    } else {
-                        console.log('wrong pwd!');
-                    }
-                });
-
-            };
-            $scope.closeDialog = function () {
-                $mdDialog.hide();
-            };
+    events = UpdateService.getEvents();
+    $scope.times = [];
+    $scope.choose = undefined;
+    for (var i = 0; i < events.length; i++) {
+      console.log("about to firing createEvent");
+      var range = moment(events[i].start).twix(events[i].end);
+      if (!range.isCurrent()) {
+        var until = moment().twix(events[i].start).length("minutes");
+        if (until > 15) {
+          $scope.times[0] = 15;
         }
-    }
-
-    function showSetup($event) {
-        var parentEl = angular.element(document.body);
-        $mdDialog.show({
-            parent: parentEl,
-            targetEvent: $event,
-            template: '<md-dialog aria-label="Setup dialog">' +
-                ' <md-dialog-content style="font-size:32px">' +
-                '<form name="setupForm">' +
-                '   <md-input-container>' +
-                '     <label>Device Name</label>' +
-                '     <input name="devId" type="text" ng-model="deviceid" required />' +
-                '   </md-input-container>' +
-                '<md-input-container class="scroll">' +
-                '<label>Calendar</label>' +
-                '<md-select ng-model="cal" class="scroll" required>' +
-                '<md-option class="scroll" ng-repeat="calendar in calendars" value="{{calendar.id}}">{{calendar.summary}}</md-option>' +
-                '</md-select>' +
-                '</md-input-container>' +
-                '</form>' +
-                ' </md-dialog-content>' +
-                ' <div class="md-actions">' +
-                '   <md-button ng-click="setDialog()" ng-disabled="setupForm.$invalid" class="md-primary">' +
-                '     Go!' +
-                '   </md-button>' +
-                ' </div>' +
-                '</md-dialog>',
-            controller: SetupController
-        });
-
-        function SetupController($scope, $mdDialog) {
-            $http.post('php/listCalendar.php').success(function (data) {
-                $scope.calendars = data;
-            });
-
-            $scope.setDialog = function () {
-                var inp = {
-                    "deviceid": $scope.deviceid,
-                    "calendar": $scope.cal,
-                    "maindevice" : false
-                };
-                $http.post('php/setcookies.php', inp).success(function (data) {
-                    $mdDialog.hide();
-                    update();
-                });
-
-            };
-            $scope.closeDialog = function () {
-                $mdDialog.hide();
-            };
+        if (until > 30) {
+          $scope.times[1] = 30;
         }
-    }
-
-    $scope.$watch($scope.device, function () {
-        if ($scope.device == undefined || $scope.device == null || $scope.device == '') {
-            showDialog();
+        if (until > 45) {
+          $scope.times[2] = 45;
         }
+        if (until > 60) {
+          $scope.times[3] = 60;
+        }
+        return;
+      }
+    }
+    if (events.length == 0) {
+      $scope.times = [15, 30, 45, 60];
+    }
+  }
+  dothebarredroll();
+  UpdateService.onEventsChange($scope, dothebarredroll);
+
+  $scope.createEvent = function() {
+    console.log("firing createEvent");
+    var now = moment().toISOString();
+    var end = moment(now).add($scope.choose, 'minutes').toISOString();
+    var event = {
+      'summary': $scope.summary + ' [Confirmed]',
+      'description': 'Quick event created from the room manager App',
+      'start': {
+        'dateTime': now,
+        'timeZone': 'Europe/Amsterdam'
+      },
+      'end': {
+        'dateTime': end,
+        'timeZone': 'Europe/Amsterdam'
+      },
+      'current': true
+    };
+    $http.post('php/setevent.php', event).success(function() {
+      console.log('boia deh');
+      UpdateService.setNewLocalEvent(event);
+      $location.path("/main");
     });
+  };
 
-    var update = function () {
-        var tempEv = [];
-        var tempcurr = '';
-        var tempConf = 'noevent';
-        var tempColor = '';
-        var cache = $cacheFactory.get('$http');
-        cache.remove('js/data.json');
-        $http.get('js/data.json', {
-            cache: false,
-            timeout: 3000
-        }).success(function (data) {
-            $scope.device = $cookies.get('rmDevice');
-            $scope.currDevice = data.filter(function (some) {
-                return some.deviceid == $scope.device
-            });
-            console.log($scope.device);
-            console.log(data);
-            console.log($scope.currDevice);
-        });
+  $scope.goback = function () {
+    $location.path("/main");
+  };
 
-        $http.post('php/listCalendar.php');
-        if (!(typeof ($scope.currDevice) == 'undefined')) {
-            if (!(typeof ($scope.currDevice[0]) == 'undefined')) {
-                console.log('currDevice 0 valido');
-                if ($scope.currDevice[0].auth) {
-                    $http.get('php/list.php').success(function (events) {
-                        for (var i = 0; i < events.length; i++) {
-                            var range = moment(events[i].start).twix(events[i].end);
-                            if (range.isCurrent()) {
-                                tempcurr = events[i];
-                                var checkexp = new RegExp("\\[Confirmed\\]");
-                                if (checkexp.test(events[i].summary)) {
-                                    tempConf = 'confirmed';
-                                    tempColor = 'red';
-                                } else {
-                                    var boia = moment(events[i].start);
-                                    boia = boia.add(20, 'm');
-                                    var boiadeh = moment(events[i].start);
-                                    boiadeh = boiadeh.add(30, 'm');
-                                    var now = moment();
-                                    if ((now >= boia) && (now <= boiadeh)) {
-                                        tempConf = 'out';
-                                        tempColor = 'blue';
-                                    } else if (now >= boiadeh) {
-                                        //autoEndEvent();
-                                        tempConf = 'in';
-                                        tempColor = 'blue';
-                                    } else {
-                                        tempConf = 'in';
-                                        tempColor = 'blue';
-                                    }
-                                }
+}]);
 
-                            } else {
-                                tempEv.push(events[i]);
+app.controller("AdminCtrl", ['$scope', '$cookies', '$location', 'UpdateService', function adminctrl($scope, $cookies, $location, UpdateService) {
+  $scope.message = "working";
+}]);
 
-                            }
-                        }
-                        if (tempConf == 'noevent') {
-                            tempColor = 'green';
-                        }
-                        if (tempEv.length > 0) {
-                            $scope.untilnext = moment().twix(tempEv[0].start).length("minutes");
-                        }
-                        else{
-                            $scope.untilnext = 61;
-                        }
-                        console.log(tempEv);
-                        $scope.color = tempColor;
-                        $scope.eventslist = tempEv;
-                        $scope.currEvent = tempcurr;
-                        $scope.state = tempConf;
-                    });
-                }
-
-            }
-        }
-    };
-
-    $scope.endEvent = function () {
-        $http.post('php/endevent.php', {
-            'eventId': $scope.currEvent.id
-        }).success(function (data) {
-            console.log('end event done!' + data);
-        });
-        $scope.go=false;
-        $timeout(function () {$scope.go=true;
-        }, 3000);
-        $scope.state = 'noevent';
-        $scope.color = 'green';
-    };
-
-    // start event function
-
-    $scope.startEvent = function () {
-        $http.post('php/startevent.php', {
-            'eventId': $scope.currEvent.id
-        }).success(function (data) {
-            console.log('confirm event done!' + data);
-        });
-        $scope.go=false;
-        $timeout(function () {$scope.go=true;
-        }, 3000);
-        $scope.state = 'confirmed';
-        $scope.color = 'red';
-    };
-
-    //repeat the update fuction every 2 second to update the data drom google calendar and the json database
-
-    timer = $interval(update, 1500);
-
-    //register in the scope the showquickbook fuction to show the dialog
-
-    $scope.showQuickBook = function ($event) {
-        var parentEl = angular.element(document.body);
-        $mdDialog.show({
-            parent: parentEl,
-            targetEvent: $event,
-            clickOutsideToClose: true,
-            template: '<md-dialog aria-label="Quick book dialog">' +
-                ' <md-dialog-content style="font-size:32px">' +
-                '<form name="quickBookForm">' +
-                '   <md-input-container>' +
-                '     <label>Event Name</label>' +
-                '     <input name="evSummary" type="text" ng-model="summary" required />' +
-                '   </md-input-container>' +
-                '<md-input-container class="scroll" >' +
-                '<label>Duration</label>' +
-                '<md-select ng-model="choose" class="scroll" required>' +
-                '<md-option ng-repeat="time in times" value="{{time}}">{{time}} minutes</md-option>' +
-                '</md-select>' +
-                '</md-input-container>' +
-                '</form>' +
-                ' </md-dialog-content>' +
-                ' <div class="md-actions">' +
-                '   <md-button ng-click="createDialog()" class="md-primary" ng-disabled="quickBookForm.$invalid" style="font-size:24px;padding:10px;">' +
-                '     Book' +
-                '   </md-button>' +
-                ' </div>' +
-                '</md-dialog>',
-            controller: QuickBookController
-        });
-
-        function QuickBookController($scope, $mdDialog) {
-            $http.get('php/list.php').success(function (events) {
-                $scope.times = [];
-                $scope.choose = undefined;
-                console.log(events);
-                for (var i = 0; i < events.length; i++) {
-                    var range = moment(events[i].start).twix(events[i].end);
-                    if (!range.isCurrent()) {
-                        var until = moment().twix(events[i].start).length("minutes");
-                        if (until > 15) {
-                            $scope.times[0] = 15;
-                        }
-                        if (until > 30) {
-                            $scope.times[1] = 30;
-                        }
-                        if (until > 45) {
-                            $scope.times[2] = 45;
-                        }
-                        if (until > 60) {
-                            $scope.times[3] = 60;
-                        }
-                        return;
-                    }
-                }
-                if (events.length == 0) {
-                    $scope.times = [15, 30, 45, 60];
-                }
-            });
-            $scope.createDialog = function () {
-                var now = moment().toISOString();
-                var end = moment(now).add($scope.choose, 'minutes').toISOString();
-                var event = {
-                    'summary': $scope.summary+'[Confirmed]',
-                    'description': 'Quick event created from the room manager App',
-                    'start': {
-                        'dateTime': now,
-                        'timeZone': 'Europe/Amsterdam'
-                    },
-                    'end': {
-                        'dateTime': end,
-                        'timeZone': 'Europe/Amsterdam'
-                    }
-                };
-                $http.post('php/setevent.php', event).success(function() {console.log('boia deh'); $mdDialog.hide();});
-            };
-
-            $scope.closeDialog = function () {
-                $mdDialog.hide();
-            };
-        }
-    }
-
-
-
+app.controller("InsideCtrl", ['$scope', '$cookies', '$location', 'UpdateService', function insidectrl($scope, $cookies, $location, UpdateService) {
+  $scope.message = "working";
 }]);
