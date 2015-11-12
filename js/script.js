@@ -10,9 +10,6 @@ document.body.addEventListener('touchmove',function(event){
 });
 
 //moment.js initialization
-function createEvent(){
-  console.log("HELLO");
-}
 moment.locale('en');
 
 //angular.js module initialization
@@ -358,7 +355,7 @@ app.controller("BookCtrl", ['$scope', '$http', '$location', 'UpdateService', fun
   if (events.length == 0) {
     $scope.times = [15, 30, 45, 60];
   }
-
+console.log("about to firing createEvent");
   $scope.createEvent = function() {
     console.log("firing createEvent");
     var now = moment().toISOString();
