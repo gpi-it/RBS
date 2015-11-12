@@ -195,3 +195,6 @@ select.focus{
   border: solid 5px #969696;
   outline: none;
 }
+
+
+ul { list-style-type: none } li:before { content: "- "; font-size: 36px; }
