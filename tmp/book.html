@@ -6,6 +6,7 @@
     <select class="scroll" ng-model="choose" required>
       <option ng-repeat="time in times" value="{{time}}">{{time}} minutes</option>
     </select>
+    <br/>
     <button name="go" ng-click="createEvent()" ng-disabled="quickBookForm.$invalid" type="button">BOOK THE ROOM</button>
   </form>
 </div>
