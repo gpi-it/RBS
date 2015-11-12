@@ -208,4 +208,4 @@ select.focus{
 }
 
 .ng-enter           { animation: slideInRight 0.3s both ease; z-index: 8888; }
-.ng-leave           { animation: slideOutLeft 0.3s both ease; z-index: 9999; }
+.ng-leave           { z-index: 9999; }
