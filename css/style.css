@@ -199,11 +199,7 @@ select.focus{
 ul { list-style-type: none; margin: 0px; padding-left: 18px;}
 
 li{
-  border: 1px solid black;
-}
-
-li:first-of-type {
-    border-top: none;
+  border-bottom: 1px solid black;
 }
 
 li:last-of-type {
