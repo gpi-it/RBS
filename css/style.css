@@ -94,7 +94,7 @@ h6      { font-size: 0.75em;     }
   transform: translateY(-50%);
 }
 
-#container-buttons, #container-buttons-inside{
+#container-buttons{
   text-align: center;
   margin:auto;
   display: -webkit-flex;
@@ -102,11 +102,8 @@ h6      { font-size: 0.75em;     }
 }
 
 #container-buttons-inside{
-  position: relative;
-  top: 50%;
-  -ms-transform: translateY(-50%);
-  -webkit-transform: translateY(-50%); /* Safari */
-  transform: translateY(-50%);
+  text-align: center;
+  margin:auto;
   height: 100%;
   width: 100%;
 }
