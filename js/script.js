@@ -285,7 +285,57 @@ app.service('UpdateService',['$http', '$interval', '$rootScope', function($http,
         }
       });
 
-      UpdateService.onEventsChange($scope, update());
+      UpdateService.onEventsChange($scope, function() {
+        var events = UpdateService.getEvents();
+        var tempList = [];
+        var tempCurr = null;
+        for (var i = 0; i < events.length; i++) {
+          if (events[i].current) {
+            tempCurr = events[i];
+            var checkexp = new RegExp("\\[Confirmed\\]");
+            if (checkexp.test(events[i].summary)) {
+              $scope.state = busyState;
+            } else {
+              var boia = moment(events[i].start);
+              boia = boia.add(20, 'm');
+              var boiadeh = moment(events[i].start);
+              boiadeh = boiadeh.add(30, 'm');
+              var now = moment();
+              if ((now >= boia) && (now <= boiadeh)) {
+
+                $scope.state = fullState;
+
+              } else if (now >= boiadeh) {
+                //autoEndEvent();
+
+                $scope.state = fullState;
+
+              } else {
+
+                $scope.state = fullState;
+
+              }
+            }
+          } else {
+            tempList.push(events[i]);
+          }
+        }
+        var iniEvent = UpdateService.getNewLocalEvent();
+        if (iniEvent!=null){
+          $scope.main = iniEvent;
+          }
+        else {
+          $scope.main = tempCurr;
+        }
+        $scope.list = tempList;
+        if ($scope.main==null) {
+            $scope.state = freeState;
+          }
+          console.log(angular.toJson($scope.state));
+          console.log(angular.toJson($scope.main));
+          console.log(angular.toJson($scope.list));
+        }
+      );
 
     }]);
 
