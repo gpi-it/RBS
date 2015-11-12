@@ -331,31 +331,38 @@ app.controller("BookCtrl", ['$scope', '$http', '$location', 'UpdateService', fun
   $scope.eventName = "";
 
   var events = UpdateService.getEvents();
-  $scope.times = [];
-  $scope.choose = undefined;
-  for (var i = 0; i < events.length; i++) {
-    console.log("about to firing createEvent");
-    var range = moment(events[i].start).twix(events[i].end);
-    if (!range.isCurrent()) {
-      var until = moment().twix(events[i].start).length("minutes");
-      if (until > 15) {
-        $scope.times[0] = 15;
+
+  UpdateService.onEventsChange($scope, dothebarredroll());
+
+  function dothebarredroll() {
+    events = UpdateService.getEvents();
+    $scope.times = [];
+    $scope.choose = undefined;
+    for (var i = 0; i < events.length; i++) {
+      console.log("about to firing createEvent");
+      var range = moment(events[i].start).twix(events[i].end);
+      if (!range.isCurrent()) {
+        var until = moment().twix(events[i].start).length("minutes");
+        if (until > 15) {
+          $scope.times[0] = 15;
+        }
+        if (until > 30) {
+          $scope.times[1] = 30;
+        }
+        if (until > 45) {
+          $scope.times[2] = 45;
+        }
+        if (until > 60) {
+          $scope.times[3] = 60;
+        }
+        return;
       }
-      if (until > 30) {
-        $scope.times[1] = 30;
-      }
-      if (until > 45) {
-        $scope.times[2] = 45;
-      }
-      if (until > 60) {
-        $scope.times[3] = 60;
-      }
-      return;
+    }
+    if (events.length == 0) {
+      $scope.times = [15, 30, 45, 60];
     }
   }
-  if (events.length == 0) {
-    $scope.times = [15, 30, 45, 60];
-  }
+
 
   $scope.createEvent = function() {
     console.log("firing createEvent");
