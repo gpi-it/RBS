@@ -85,7 +85,7 @@ h6      { font-size: 0.75em;     }
     transition: all 0.3s ease;
 }
 
-#warper{
+.warper{
   position: relative;
   padding: 12px;
   top: 50%;
