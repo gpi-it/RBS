@@ -117,16 +117,19 @@ h6      { font-size: 0.75em;     }
 .button-warper-1{
   -webkit-flex: 1;
   flex: 1;
+  margin: 12px;
 }
 
 .button-warper-3{
   -webkit-flex: 1;
   flex: 1;
+  margin: 12px;
 }
 
 .button-warper-2{
   -webkit-flex: 2;
   flex: 2;
+  margin: 12px;
 }
 
 button{
@@ -157,7 +160,7 @@ button:disabled{
 #bookForm{
   text-align: center;
   position: relative;
-  padding: 12px;
+  padding: 0px;
   top: 50%;
   -ms-transform: translateY(-50%);
   -webkit-transform: translateY(-50%); /* Safari */
@@ -226,4 +229,8 @@ li{
 
 li:last-of-type {
     border-bottom: none;
+}
+
+#bookBtn{
+  margin:12px;
 }
