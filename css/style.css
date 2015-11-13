@@ -230,7 +230,3 @@ li{
 li:last-of-type {
     border-bottom: none;
 }
-
-#bookBtn{
-  margin:12px;
-}
