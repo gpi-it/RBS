@@ -5,9 +5,9 @@ Select a name for the device: <input type="text" name="name" value="" ng-model="
 Select a calendar: <select class="" name="cal" ng-model="selected" ng-options="calendar.id as calendar.summary for calendar in calendars" required>
 </select>
 <br>
-<input type="radio" name="device" value="main" required> Main device
+<input type="radio" name="device" ng-value="true" ng-model="position" required> Main device
 <br>
-<input type="radio" name="device" value="inside" required> Inside device
+<input type="radio" name="device" ng-value="false" ng-model="position" required> Inside device
 <br>
 <input type="button" name="set" value="Set up the device" ng-click="startup()" ng-disabled="setForm.$invalid">
 </form>

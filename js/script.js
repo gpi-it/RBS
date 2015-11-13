@@ -304,8 +304,11 @@ app.controller("SetCtrl", ['$scope', '$cookies', '$location', 'UpdateService', '
     if ($scope.device == null) {
       $location.path('/');
     }
-    else {
+    else if ($scope.device.maindevice) {
       $location.path("/main");
+    }
+    else {
+      $location.path("/inside");
     }
   });
 
@@ -319,10 +322,15 @@ app.controller("SetCtrl", ['$scope', '$cookies', '$location', 'UpdateService', '
     var inp = {
                 "deviceid": $scope.deviceid,
                 "calendar": $scope.selected,
-                "maindevice" : true
+                "maindevice" : $scope.position
               };
     $http.post('php/setcookies.php', inp).success(function (data) {
-      $location.path("/main");
+      if ($scope.position) {
+        $location.path("/main");
+      }
+      else {
+        $location.path("/inside");
+      }
     });
   };
 
