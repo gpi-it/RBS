@@ -114,6 +114,21 @@ h6      { font-size: 0.75em;     }
   margin: 6px;
 }
 
+.button-warper-1{
+  -webkit-flex: 1;
+  flex: 1;
+}
+
+.button-warper-3{
+  -webkit-flex: 1;
+  flex: 1;
+}
+
+.button-warper-2{
+  -webkit-flex: 2;
+  flex: 2;
+}
+
 button{
   height: 120px;
   vertical-align: middle;
