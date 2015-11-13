@@ -94,7 +94,7 @@ h6      { font-size: 0.75em;     }
   transform: translateY(-50%);
 }
 
-#container-buttons{
+.container-buttons{
   text-align: center;
   margin:auto;
   display: -webkit-flex;
