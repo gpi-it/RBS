@@ -78,14 +78,14 @@ h6      { font-size: 0.75em;     }
 }
 
 #list-head{
-  padding:18px;
+  padding: 1px 18px 1px 18px;
   -webkit-transition: all 0.3s ease;
     -moz-transition: all 0.3s ease;
     -ms-transition: all 0.3s ease;
     transition: all 0.3s ease;
 }
 
-#warper{
+.warper{
   position: relative;
   padding: 12px;
   top: 50%;
@@ -94,17 +94,42 @@ h6      { font-size: 0.75em;     }
   transform: translateY(-50%);
 }
 
-#container-buttons{
+.container-buttons{
   text-align: center;
   margin:auto;
   display: -webkit-flex;
   display: flex;
 }
 
+#container-buttons-inside{
+  text-align: center;
+  margin:auto;
+  height: 100%;
+  width: 100%;
+}
+
 .button-warper{
   -webkit-flex: 1;
   flex: 1;
   margin: 6px;
+}
+
+.button-warper-1{
+  -webkit-flex: 1;
+  flex: 1;
+  margin: 12px;
+}
+
+.button-warper-3{
+  -webkit-flex: 1;
+  flex: 1;
+  margin: 12px;
+}
+
+.button-warper-2{
+  -webkit-flex: 2;
+  flex: 2;
+  margin: 12px;
 }
 
 button{
@@ -135,7 +160,7 @@ button:disabled{
 #bookForm{
   text-align: center;
   position: relative;
-  padding: 12px;
+  padding: 0px;
   top: 50%;
   -ms-transform: translateY(-50%);
   -webkit-transform: translateY(-50%); /* Safari */
@@ -157,7 +182,7 @@ input[type="text"] {
   -moz-border-radius: 0px;
   -webkit-border-radius: 0px;
   padding: 10px;
-  border: solid 5px #c9c9c9;
+  border: solid 5px #B9FBBB;
   transition: border 0.3s;
   -webkit-transition: border 0.3s;
   -moz-transition: border 0.3s;
@@ -165,7 +190,7 @@ input[type="text"] {
 
 input[type="text"]:focus,
 input[type="text"].focus {
-  border: solid 5px #969696;
+  border: solid 5px #6DFB73;
   outline: none;
 }
 
@@ -183,7 +208,8 @@ select{
   -moz-border-radius: 0px;
   -webkit-border-radius: 0px;
   padding: 10px;
-  border: solid 5px #c9c9c9;
+  border: solid 5px #B9FBBB;
+  background-color: white;
   transition: border 0.3s;
   -webkit-transition: border 0.3s;
   -moz-transition: border 0.3s;
@@ -191,21 +217,16 @@ select{
 
 select:focus,
 select.focus{
-  border: solid 5px #969696;
+  border: solid 5px #6DFB73;
   outline: none;
 }
 
+ul { list-style-type: none; margin: 0px; padding-left: 18px; padding-right: 18px;}
 
-
-
-@keyframes slideOutLeft {
-    to      { opacity:0; }
+li{
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
-@keyframes slideInRight {
-    from    { opacity:0; }
-    to      { opacity:1; }
+li:last-of-type {
+    border-bottom: none;
 }
-
-.ng-enter           { animation: slideInRight 0.3s both ease; z-index: 8888; }
-.ng-leave           { z-index: 9999; }

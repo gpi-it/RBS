@@ -304,8 +304,11 @@ app.controller("SetCtrl", ['$scope', '$cookies', '$location', 'UpdateService', '
     if ($scope.device == null) {
       $location.path('/');
     }
-    else {
+    else if ($scope.device.maindevice) {
       $location.path("/main");
+    }
+    else {
+      $location.path("/inside");
     }
   });
 
@@ -319,10 +322,15 @@ app.controller("SetCtrl", ['$scope', '$cookies', '$location', 'UpdateService', '
     var inp = {
                 "deviceid": $scope.deviceid,
                 "calendar": $scope.selected,
-                "maindevice" : true
+                "maindevice" : $scope.position
               };
     $http.post('php/setcookies.php', inp).success(function (data) {
-      $location.path("/main");
+      if ($scope.position) {
+        $location.path("/main");
+      }
+      else {
+        $location.path("/inside");
+      }
     });
   };
 
@@ -399,6 +407,141 @@ app.controller("AdminCtrl", ['$scope', '$cookies', '$location', 'UpdateService',
   $scope.message = "working";
 }]);
 
-app.controller("InsideCtrl", ['$scope', '$cookies', '$location', 'UpdateService', function insidectrl($scope, $cookies, $location, UpdateService) {
-  $scope.message = "working";
+app.controller('InsideCtrl', ['$scope', '$cookies', '$location', 'UpdateService', '$interval', '$http', function insidectrl($scope, $cookies, $location, UpdateService, $interval, $http) {
+  $scope.device = null;
+  $scope.untilnext = 0;
+  $scope.state = {};
+  $scope.main = {};
+  $scope.list = [];
+
+  var fullState = {
+    "color": "blue",
+    "startButton": false,
+    "stopButton": false
+  };
+  var freeState = {
+    "color": "green",
+    "startButton": true,
+    "stopButton": true
+  };
+  var incomingState = {
+    "color": "green",
+    "startButton": true,
+    "stopButton": true
+  };
+  var busyState = {
+    "color": "red",
+    "startButton": true,
+    "stopButton": false
+  };
+
+
+  function update() {
+    var events = UpdateService.getEvents();
+    var tempList = [];
+    var tempCurr = null;
+    for (var i = 0; i < events.length; i++) {
+      if (events[i].current) {
+        tempCurr = events[i];
+        var checkexp = new RegExp("\\[Confirmed\\]");
+        if (checkexp.test(events[i].summary)) {
+          $scope.state = busyState;
+        } else {
+          var boia = moment(events[i].start);
+          boia = boia.add(20, 'm');
+          var boiadeh = moment(events[i].start);
+          boiadeh = boiadeh.add(30, 'm');
+          var now = moment();
+          if ((now >= boia) && (now <= boiadeh)) {
+
+            $scope.state = fullState;
+
+          } else if (now >= boiadeh) {
+            //autoEndEvent();
+
+            $scope.state = fullState;
+
+          } else {
+
+            $scope.state = fullState;
+
+          }
+        }
+      } else {
+        tempList.push(events[i]);
+      }
+    }
+    var iniEvent = UpdateService.getNewLocalEvent();
+    if (iniEvent!=null){
+      $scope.main = iniEvent;
+      $scope.state = busyState;
+      }
+    else {
+      $scope.main = tempCurr;
+    }
+    $scope.list = tempList;
+    if ($scope.main==null) {
+        $scope.state = freeState;
+      }
+      console.log(angular.toJson($scope.state));
+      console.log(angular.toJson($scope.main));
+      console.log(angular.toJson($scope.list));
+    };
+
+    update();
+
+  $interval(function(){
+    if($scope.list[0]!=undefined){
+      $scope.untilnext = moment().twix($scope.list[0].start).length("minutes");}
+    else {
+      $scope.untilnext=61;
+    }
+    if ($scope.state.color == "green"){
+          if ($scope.untilnext < 15) {
+            $scope.state=incomingState;
+          }
+    }
+  }, 1000);
+
+  // end event function
+
+  $scope.endEvent = function() {
+    $http.post('php/endevent.php', {
+      'eventId': $scope.main.id
+    }).success(function(data) {
+      console.log('end event done!' + data);
+    });
+    if ($scope.untilnext > 15) {
+      $scope.state = freeState;
+    } else {
+      $scope.state = incomingState;
+    }
+  };
+
+  // start event function
+
+  $scope.startEvent = function() {
+    $http.post('php/startevent.php', {
+      'eventId': $scope.main.id
+    }).success(function(data) {
+      console.log('confirm event done!' + data);
+    });
+    $scope.state = busyState;
+  };
+
+  $scope.book = function () {
+    $location.path('/book');
+  }
+
+  //events handler
+  UpdateService.onDeviceChange($scope, function() {
+    var device = $cookies.get('rmDevice');
+    $scope.device = UpdateService.getCurrentDevice(device);
+    if ($scope.device == null) {
+      $location.path('/');
+    }
+  });
+
+  UpdateService.onEventsChange($scope, update);
+
 }]);
