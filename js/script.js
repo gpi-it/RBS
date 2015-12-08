@@ -307,7 +307,7 @@ app.controller("SetCtrl", ['$scope', '$cookies', '$location', 'UpdateService', '
     else if ($scope.device.maindevice) {
       $location.path("/main");
     }
-    else {
+    else if(!$scope.device.maindevice){
       $location.path("/inside");
     }
   });
