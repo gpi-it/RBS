@@ -304,10 +304,10 @@ app.controller("SetCtrl", ['$scope', '$cookies', '$location', 'UpdateService', '
     if ($scope.device == null) {
       $location.path('/');
     }
-    else if ($scope.device.maindevice) {
+    else if ($scope.device.mainDevice) {
       $location.path("/main");
     }
-    else if(!$scope.device.maindevice){
+    else if(!$scope.device.mainDevice){
       $location.path("/inside");
     }
   });
