@@ -225,6 +225,7 @@ ul { list-style-type: none; margin: 0px; padding-left: 18px; padding-right: 18px
 
 li{
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  overflow:auto;
 }
 
 li:last-of-type {
