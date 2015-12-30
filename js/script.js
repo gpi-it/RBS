@@ -273,14 +273,18 @@ app.service('UpdateService',['$http', '$interval', '$rootScope', function($http,
       };
 
 
-      $scope.anticipateEvent = function(id) {
-        console.log(id);
-        $http.post('php/anticipate.php', {
-          'eventId': id
-        }).success(function(data) {
-          console.log('anticipate event done!' + data);
-        });
-        $scope.state = busyState;
+      $scope.anticipateEvent = function() {
+        if ($scope.state.color=="green") {
+
+          console.log($scope.list[0].id);
+          $http.post('php/anticipate.php', {
+            'eventId': $scope.list[0].id
+          }).success(function(data) {
+            console.log('anticipate event done!' + data);
+          });
+          $scope.state = busyState;
+
+        }
       };
 
       $scope.book = function () {
