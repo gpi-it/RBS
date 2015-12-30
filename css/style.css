@@ -237,4 +237,6 @@ li:last-of-type {
   right: 15px;
   color: white;
   font-size: 2em;
+  height: auto;
+  width: auto;
 }
