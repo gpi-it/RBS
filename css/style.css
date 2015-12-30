@@ -244,3 +244,16 @@ li:last-of-type {
   height: 20%;
   width: 100%;
 }
+
+@keyframes flashred {
+    from {background-color: red;}
+    to {background-color: yellow;}
+}
+
+.flashred{
+  animation-name: flashred;
+  animation-duration: 1s;
+  animation-direction: alternate;
+  animation-timing-function: ease-in;
+  animation-iteration-count: infinite;
+}
