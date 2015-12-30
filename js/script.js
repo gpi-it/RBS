@@ -272,6 +272,16 @@ app.service('UpdateService',['$http', '$interval', '$rootScope', function($http,
         $scope.state = busyState;
       };
 
+
+      $scope.anticipateEvent = function(id) {
+        $http.post('php/anticipate.php', {
+          'eventId': id
+        }).success(function(data) {
+          console.log('anticipate event done!' + data);
+        });
+        $scope.state = busyState;
+      };
+
       $scope.book = function () {
         $location.path('/book');
       }
