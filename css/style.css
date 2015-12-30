@@ -230,3 +230,11 @@ li{
 li:last-of-type {
     border-bottom: none;
 }
+
+#book-close{
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  color: white;
+  font-size: 2em;
+}
