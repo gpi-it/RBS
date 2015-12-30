@@ -233,6 +233,13 @@ li:last-of-type {
 
 #book-close-up{
   position: absolute;
+  height: 30%;
+  width: 100%;
+}
+
+#book-close-down{
+  position: absolute;
+  bottom: 0px;
   height: 20%;
   width: 100%;
 }
