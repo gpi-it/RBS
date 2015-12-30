@@ -245,6 +245,8 @@ li:last-of-type {
 }
 
 .button-small{
+  display: inline;
+  color: black;
   height: auto;
   width: auto;
   font-size: 1em;
