@@ -15,5 +15,4 @@ $results->setSummary($new);
 
 $data = $id.' '.$new;
 $service->events->patch($calendarId,$id,$results);
-var_dump($results);
 ?>

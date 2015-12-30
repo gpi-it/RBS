@@ -31,7 +31,7 @@
   </div>
   <ul id="ev">
     <li ng-repeat="event in list">
-      <div id="event-left"><p>{{event.start | date:'H:mm'}} to {{event.end | date:'H:mm'}} - <strong>{{event.summary}}</strong></p></div><div id="event-right" ng-if='$first&&state.color=="green"'><button class='button-small'>MAKE CURRENT</button></div>
+      <div id="event-left"><p>{{event.start | date:'H:mm'}} to {{event.end | date:'H:mm'}} - <strong>{{event.summary}}</strong></p></div><div id="event-right" ng-if='$first&&state.color=="green"' ng-click="anticipate({{event.id}})"><button class='button-small'>MAKE CURRENT</button></div>
     </li>
   </ul>
 </div>

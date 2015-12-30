@@ -16,6 +16,4 @@ $results = $service->events->get($calendarId, $id);
 $results->setEnd($end);
 
 $service->events->patch($calendarId,$id,$results);
-
-var_dump($end);
 ?>
