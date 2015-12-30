@@ -246,7 +246,7 @@ li:last-of-type {
 }
 
 @keyframes flashred {
-    to {color: red;}
+    to {color: rgba(0, 0, 0, 0.4);}
 }
 
 .flashred{
