@@ -233,11 +233,11 @@ li:last-of-type {
 
 #book-close{
   position: absolute;
-  top: 15px;
-  right: 15px;
+  top: 12px;
+  right: 12px;
   color: white;
   font-size: 1.5em;
   height: auto;
   width: auto;
-  padding: 15px;
+  padding: 12px;
 }
