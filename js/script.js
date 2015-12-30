@@ -274,6 +274,7 @@ app.service('UpdateService',['$http', '$interval', '$rootScope', function($http,
 
 
       $scope.anticipateEvent = function(id) {
+        console.log(id);
         $http.post('php/anticipate.php', {
           'eventId': id
         }).success(function(data) {
