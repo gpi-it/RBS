@@ -31,7 +31,7 @@
   </div>
   <ul id="ev">
     <li ng-repeat="event in list">
-      <p ng-click="!$first || anticipateEvent()">{{event.start | date:'H:mm'}} to {{event.end | date:'H:mm'}} - <strong>{{event.summary}}</strong></p>
+      <p ng-click="!$first || anticipateEvent()">{{event.start | date:'H:mm'}} to {{event.end | date:'H:mm'}} - <strong>{{event.summary}}</strong> <i ng-if="$first&&state.color!='green'" class="fa fa-rocket flash"></i></p>
     </li>
   </ul>
 </div>

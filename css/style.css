@@ -244,3 +244,15 @@ li:last-of-type {
   height: 20%;
   width: 100%;
 }
+
+@keyframes flash {
+    to {color: rgba(0, 0, 0, 0.4);}
+}
+
+.flash{
+  animation-name: flash;
+  animation-duration: 2s;
+  animation-direction: alternate;
+  animation-timing-function: ease-in;
+  animation-iteration-count: infinite;
+}
