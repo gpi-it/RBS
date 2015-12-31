@@ -246,13 +246,13 @@ li:last-of-type {
 }
 
 @keyframes flash {
-    from{color: rgba(0, 0, 0, 0);}
-    to {color: rgba(0, 0, 0, 1);}
+    from{color: rgba(244, 67, 54, 0);}
+    to {color: rgba(244, 67, 54, 1);}
 }
 
 .flash{
   animation-name: flash;
-  animation-duration: 2s;
+  animation-duration: 1.5s;
   animation-direction: alternate;
   animation-timing-function: ease-in;
   animation-iteration-count: infinite;
