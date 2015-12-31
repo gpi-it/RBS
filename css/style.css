@@ -246,7 +246,7 @@ li:last-of-type {
 }
 
 @keyframes flash {
-    from{color: rgba(0, 0, 0, 0.4);}
+    from{color: rgba(0, 0, 0, 0);}
     to {color: rgba(0, 0, 0, 1);}
 }
 
