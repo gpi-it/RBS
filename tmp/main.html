@@ -1,16 +1,16 @@
 <div class="box" id="mainBox">
 <div class="{{state.color}}" id="container">
   <div class="warper" id="warper-main">
-    <div class="" id="container-head">
-      <h1 class='' ng-if='state.color=="green"'>Room free</h1>
-      <h1 class='' ng-if='state.color!="green"'>{{main.summary===undefined ? "Someone forgot the title" : main.summary | limitTo:25}}{{main.summary.length > 20 ? '...' : ''}}</h1>
-      <div class='' ng-if='!main.allday&&state.color!="green"'>
+    <div id="container-head">
+      <h1 ng-if='state.color=="green"'>Room free</h1>
+      <h1 ng-if='state.color!="green"'>{{main.summary===undefined ? "Someone forgot the title" : main.summary | limitTo:25}}{{main.summary.length > 20 ? '...' : ''}}</h1>
+      <div ng-if='!main.allday&&state.color!="green"'>
         <p>From <strong>{{main.start | date:'H:mm'}}</strong> to <strong>{{main.end | date:'H:mm'}}</strong></p>
       </div>
-      <div class='' ng-if='main.allday&&state.color!="green"'>
+      <div ng-if='main.allday&&state.color!="green"'>
         <p>All day event</p>
       </div>
-      <div class='' ng-if='state.color!="green"'>
+      <div ng-if='state.color!="green"'>
         <p>Created by {{main.creator.length > 24 ? 'GreenRobot' : main.creator}}</p>
       </div>
     </div>
@@ -25,13 +25,13 @@
     </div>
   </div>
 </div>
-<div class="" id="list">
+<div id="list">
   <div class="{{state.color}}-light" id="list-head">
   <h3>Next events</h3>
   </div>
   <ul id="ev">
     <li ng-repeat="event in list">
-      <p>{{event.start | date:'H:mm'}} to {{event.end | date:'H:mm'}} - <strong>{{event.summary}}</strong></p>
+      <p ng-click="!$first || anticipateEvent()">{{event.start | date:'H:mm'}} to {{event.end | date:'H:mm'}} - <strong>{{event.summary}}</strong> <i ng-if="$first&&state.color=='green'" class="fa fa-angle-up flash"></i></p>
     </li>
   </ul>
 </div>
