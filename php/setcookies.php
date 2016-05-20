@@ -26,7 +26,7 @@ if($jsonString === false) {
 }
 $data = json_decode($jsonString);
 $cookie_name = "rmDevice";
-setcookie($cookie_name, $pst->deviceid, 2147483647, "/");
+$isset=setcookie($cookie_name, $pst->deviceid, 2147483647, "/");
 $new= array("deviceid"=>$pst->deviceid,"device"=>$currDevice,"calendar"=>$pst->calendar,"auth"=>true , "mainDevice"=>$pst->maindevice);
 
 if(!in_array_r($pst->deviceid,$data)){
@@ -36,7 +36,7 @@ $var = file_put_contents('../js/data.json', $jsonData);
 if($var === false) {
     echo "Error";
 } else {
-    echo "All good, $var";
+    echo "All good, $isset";
 }
 }
 ?>
