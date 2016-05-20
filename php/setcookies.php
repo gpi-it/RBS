@@ -1,6 +1,4 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
 require_once 'auth.php';
 
 require_once 'devices.php';
@@ -26,7 +24,7 @@ if($jsonString === false) {
 }
 $data = json_decode($jsonString);
 $cookie_name = "rmDevice";
-$isset=setcookie($cookie_name, $pst->deviceid, 2147483647, "/");
+setcookie($cookie_name, $pst->deviceid, 2147483647, "/");
 $new= array("deviceid"=>$pst->deviceid,"device"=>$currDevice,"calendar"=>$pst->calendar,"auth"=>true , "mainDevice"=>$pst->maindevice);
 
 if(!in_array_r($pst->deviceid,$data)){
@@ -36,7 +34,7 @@ $var = file_put_contents('../js/data.json', $jsonData);
 if($var === false) {
     echo "Error";
 } else {
-    echo "All good, $isset";
+    echo "All good, $var";
 }
 }
 ?>
