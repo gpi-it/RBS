@@ -24,7 +24,8 @@ if($jsonString === false) {
 }
 $data = json_decode($jsonString);
 $cookie_name = "rmDevice";
-setcookie($cookie_name, $pst->deviceid, 2147483647, "/");
+$dude=setcookie($cookie_name, $pst->deviceid, 2147483647, "/");
+var_dump($dude);
 $new= array("deviceid"=>$pst->deviceid,"device"=>$currDevice,"calendar"=>$pst->calendar,"auth"=>true , "mainDevice"=>$pst->maindevice);
 
 if(!in_array_r($pst->deviceid,$data)){
