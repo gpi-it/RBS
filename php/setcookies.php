@@ -15,6 +15,10 @@ function in_array_r($needle, $haystack, $strict = false) {
 
 $pst = json_decode(file_get_contents("php://input"));
 $jsonString = file_get_contents('../js/data.json');
+$data = json_decode($jsonString);
+$cookie_name = "rmDevice";
+$dude=setcookie($cookie_name, $pst->deviceid, 2147483647, "/");
+var_dump($dude);
 if($jsonString === false) {
     echo "Error";
 } else {
@@ -22,10 +26,6 @@ if($jsonString === false) {
     var_dump(is_writable('../js/data.json'));
     var_dump(file_exists('../js/data.json'));
 }
-$data = json_decode($jsonString);
-$cookie_name = "rmDevice";
-$dude=setcookie($cookie_name, $pst->deviceid, 2147483647, "/");
-var_dump($dude);
 $new= array("deviceid"=>$pst->deviceid,"device"=>$currDevice,"calendar"=>$pst->calendar,"auth"=>true , "mainDevice"=>$pst->maindevice);
 
 if(!in_array_r($pst->deviceid,$data)){
