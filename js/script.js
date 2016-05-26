@@ -195,6 +195,7 @@ app.service('UpdateService',['$http', '$interval', '$rootScope', function($http,
               var boiadeh = moment(events[i].start);
               boiadeh = boiadeh.add(30, 'm');
               var now = moment();
+              console.log(now);
               if ((now >= boia) && (now <= boiadeh)) {
 
                 $scope.state = fullState;
