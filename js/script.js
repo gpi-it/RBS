@@ -223,6 +223,7 @@ app.service('UpdateService',['$http', '$interval', '$rootScope', function($http,
         else {
           $scope.main = tempCurr;
         }
+        $scope.list = [];
         $scope.list = tempList;
         if ($scope.main==null) {
             $scope.state = freeState;
