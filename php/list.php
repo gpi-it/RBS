@@ -21,6 +21,8 @@ $i= 0;
   foreach ($results->getItems() as $event) {
     $start = $event->start->dateTime;
     $end = $event->end->dateTime;
+    var_dump($start);
+    var_dump($end);
     if (empty($start) && empty($end)) {
       $start = $event->start->date;
       $end = $event->end->date;
