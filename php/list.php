@@ -21,8 +21,6 @@ $i= 0;
   foreach ($results->getItems() as $event) {
     $start = $event->start->dateTime;
     $end = $event->end->dateTime;
-    var_dump($start);
-    var_dump($end);
     if (empty($start) && empty($end)) {
       $start = $event->start->date;
       $end = $event->end->date;
@@ -31,7 +29,6 @@ $i= 0;
     else{
         $allday = false;
     }
-    var_dump(date('c'));
     if ((date('c')>$start)&&(date('c')<$end))
     {
       $current=true;
