@@ -29,6 +29,7 @@ $i= 0;
     else{
         $allday = false;
     }
+    var_dump(date('c'));
     if ((date('c')>$start)&&(date('c')<$end))
     {
       $current=true;
