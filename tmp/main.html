@@ -30,7 +30,7 @@
   <h3>Next events</h3>
   </div>
   <ul id="ev">
-    <li ng-repeat="event in list">
+    <li ng-repeat="event in list track by $index">
       <p ng-click="!$first || anticipateEvent()">{{event.start | date:'H:mm'}} to {{event.end | date:'H:mm'}} - <strong>{{event.summary}}</strong> <i ng-if="$first&&state.color=='green'" class="fa fa-angle-up flash"></i></p>
     </li>
   </ul>
