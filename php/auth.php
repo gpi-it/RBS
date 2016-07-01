@@ -36,7 +36,6 @@ date_default_timezone_set('Europe/Amsterdam');
 	else{
 		$calendarId='greenpeace.org_2d3932343437383231@resource.calendar.google.com';
 	}
-    $client_id = '708497098884-f32pd1cegl8pge88h6mjp9kudrlbk3pm.apps.googleusercontent.com';
 	$Email_address = '708497098884-f32pd1cegl8pge88h6mjp9kudrlbk3pm@developer.gserviceaccount.com';
 	$key_file_location = 'key.p12';
 
