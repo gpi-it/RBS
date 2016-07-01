@@ -1,7 +1,7 @@
 # RBS
-Room Booking System
+##Room Booking System
 
-HOW TO INSTALL
+####HOW TO INSTALL
 
 1. Stick it on a web server
 2. Go on google developer console and create a new project (console.developers.google.com)
@@ -14,3 +14,7 @@ HOW TO INSTALL
 9. add the service account id email address ( in the example something@developer.gserviceaccount.com) as an editor in the target calendars, as you would do with any normal user.
 10. ???
 11. profit
+
+
+####HOW TO USE
+https://github.com/gpi-it/RBS/blob/master/RBS_user_guide.pdf
