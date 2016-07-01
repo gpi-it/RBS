@@ -5,7 +5,7 @@ HOW TO INSTALL
 
 1. Stick it on a web server
 2. Go on google developer console and create a new project (console.developers.google.com)
-3. click on the left menu on "credentials", click on the button "create credentials" and select "service account key", after that the
+3. click on the left menu on "credentials", click on the button "create credentials" and select "service account key", after that download the p12 key file
 4. take the p12 file of the service account and put it in the php folder
 5. go in the php folder and open the auth.php file
 6. modify the line 4 with your timezone if necessary
